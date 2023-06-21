@@ -3,7 +3,7 @@ export type SnapPost = {
     userId: string;
     postImages: Array<{
         imagePath: string;
-        tags: Array<string>;
+        tag: string;
     }>;
     title: string;
     comment?: string;

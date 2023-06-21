@@ -6,7 +6,7 @@ export const SnapPostResponseScheme = z.object({
     postImages: z.array(
         z.object({
             imagePath: z.string(),
-            tags: z.array(z.string()),
+            tag: z.string(),
         })
     ),
     title: z.string(),
@@ -37,7 +37,7 @@ const CreateSnapPostRequestScheme = z.object({
     postImages: z.array(
         z.object({
             imagePath: z.string(),
-            tags: z.array(z.string()),
+            tag: z.string(),
         })
     ),
 });
@@ -65,7 +65,7 @@ const UpdateSnapPostRequestScheme = z.object({
     postImages: z.array(
         z.object({
             imagePath: z.string(),
-            tags: z.array(z.string()),
+            tag: z.string(),
         })
     ),
 });
