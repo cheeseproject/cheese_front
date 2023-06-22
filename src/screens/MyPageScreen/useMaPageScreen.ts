@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import {
     useFetchLikedSnapPosts,
     useFetchMySnapPosts,
@@ -8,11 +7,11 @@ import { useFetchMyUser } from '../../hooks/domain/user/useFetchUser';
 export const useMyPageScreen = () => {
     const { data: mySnapPosts = [] } = useFetchMySnapPosts();
     const { data: myUser } = useFetchMyUser();
-    const { data: likedSnapPost } = useFetchLikedSnapPosts();
+    const { data: likedSnapPosts = [] } = useFetchLikedSnapPosts();
 
     return {
         mySnapPosts,
-        likedSnapPost,
+        likedSnapPosts,
         myUser,
     };
 };
