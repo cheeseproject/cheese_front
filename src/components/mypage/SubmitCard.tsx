@@ -6,12 +6,13 @@ type Props = {
     title: string;
     imagePath: string;
     comment?: string;
+    onPress: () => void;
 };
 
-export const SubmitCard = ({ title, imagePath, comment }: Props) => {
+export const SubmitCard = ({ title, imagePath, comment, onPress }: Props) => {
     return (
         <View style={styles.container}>
-            <Card style={styles.card}>
+            <Card style={styles.card} onPress={onPress}>
                 <Card.Title title={title} subtitle={comment} />
                 <Card.Content>
                     <Card.Cover source={{ uri: imagePath }} />

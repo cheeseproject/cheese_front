@@ -6,7 +6,8 @@ import { useMyPageScreen } from './useMaPageScreen';
 import { SnapPost } from '../../entities/SnapPost';
 
 export const MyPageScreen = () => {
-    const { mySnapPosts } = useMyPageScreen();
+    const { mySnapPosts, likedSnapPosts, myUser, handlePressSnapPost } =
+        useMyPageScreen();
 
     const renderSubmitCard = (snapPost: SnapPost) => (
         <View style={{ flex: 0.5 }}>
@@ -14,6 +15,7 @@ export const MyPageScreen = () => {
                 title={snapPost.title}
                 comment={snapPost.comment}
                 imagePath={snapPost.postImages[0].imagePath}
+                onPress={() => handlePressSnapPost(snapPost.snapPostId)}
             />
         </View>
     );
