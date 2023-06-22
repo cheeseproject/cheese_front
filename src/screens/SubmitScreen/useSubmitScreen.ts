@@ -50,12 +50,35 @@ export const useSubmitScreen = () => {
         );
     };
 
-    const handleSubmitSnapPost = handleSubmit(async (data) => {
+    // const handleSubmitSnapPost = handleSubmit(async (data) => {
+    //     createSnapPost(data, {
+    //         onSuccess: goBack,
+    //         onError: (error) => console.log(error),
+    //     });
+    // });
+
+    const handleSubmitSnapPost = async () => {
+        const data = {
+            postImages: [
+                {
+                    imagePath: 'https://picsum.photos/200/300',
+                    tag: 'nature',
+                },
+                {
+                    imagePath: 'https://picsum.photos/200/300',
+                    tag: 'landscape',
+                },
+            ],
+            title: 'Sample Post',
+            longitude: 123.456,
+            latitude: 78.901,
+            comment: 'This is a sample comment.',
+        };
         createSnapPost(data, {
             onSuccess: goBack,
             onError: (error) => console.log(error),
         });
-    });
+    };
 
     const goBack = () => {
         navigation.goBack();
