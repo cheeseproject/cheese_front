@@ -18,16 +18,17 @@ export const useFetchMyUser = (queryOptions?: UseQueryOptions<User>) => {
 };
 
 export const useFetchUser = (
-    userId: string,
+    userId?: string,
     queryOptions?: UseQueryOptions<User>
 ) => {
-    return useQuery<User>(
-        [QUERY_KEYS.ONE(userId)],
-        () => userRepository.fetch({ userId }).then(converter),
-        {
-            ...queryOptions,
-        }
-    );
+    const queryFn = async () => {
+        if (!userId) throw new Error('userId is required.');
+        const res = await userRepository.fetch({ userId });
+        return converter(res);
+    };
+    return useQuery<User>([QUERY_KEYS.ONE(userId ?? '')], queryFn, {
+        ...queryOptions,
+    });
 };
 
 const converter = (res: UserResponse) => {
