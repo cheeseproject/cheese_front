@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, TextInput, Divider } from 'react-native-paper';
 import { useSubmitScreen } from './useSubmitScreen';
 // import ImageLabeling from '@react-native-ml-kit/image-labeling';
@@ -72,7 +72,15 @@ export const SubmitScreen = () => {
                 )}
                 name="comment"
             />
-
+            <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    paddingVertical: 16,
+                }}
+            ></ScrollView>
             {/* {image && (
                 <Image
                     source={{ uri: image }}
