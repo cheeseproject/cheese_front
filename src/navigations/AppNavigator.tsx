@@ -10,7 +10,7 @@ export const AppNavigator = () => {
     const { authUser } = useAuthUser();
     // NOTE: 認証された時にプロフィールがフェッチされる
     const { data: userProfile, isLoading } = useFetchUser(authUser?.uid, {
-        enabled: !!authUser,
+        enabled: !!authUser?.uid,
     });
 
     const Navigation = () => {

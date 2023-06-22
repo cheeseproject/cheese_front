@@ -2,14 +2,20 @@ import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { SegmentedButtons, Text } from 'react-native-paper';
-import { useLocationInformation } from '../../hooks/useLocationInformation';
+
+import { useMapScreen } from './useMapScreen';
 
 export const MapScreen = () => {
-    const { location } = useLocationInformation();
-    const [errorMsg, setErrorMsg] = useState<string>();
-
-    // 現在選択中のボタンの値を管理する
-    const [selectedButton, setSelectedButton] = useState<string>('');
+    const {
+        location,
+        title,
+        snapPosts,
+        likedSnapPosts,
+        selectedButton,
+        handleSubmitSnapRoute,
+        addSnapPostIdToRoute,
+        handleChangeSelectedButton,
+    } = useMapScreen();
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -35,7 +41,7 @@ export const MapScreen = () => {
             }
             <SegmentedButtons
                 value={selectedButton}
-                onValueChange={(value) => setSelectedButton(value)}
+                onValueChange={handleChangeSelectedButton}
                 buttons={[
                     { label: 'すべて', value: 'all' },
                     { label: 'おすすめ', value: 'recommend' },

@@ -14,6 +14,7 @@ export const useHomeScreen = () => {
 
     const { mutate: likeSnapPosts } = useLikeSnapPosts();
 
+    // NOTE: いいねしたSnapPostのIDを管理する
     const addLikedSnapPost = (snapPostId: string) => {
         setLikesSnapPostIds((prev) => [...prev, snapPostId]);
     };
@@ -22,8 +23,12 @@ export const useHomeScreen = () => {
     const handleLSubmitLikedIds = () => {
         // TODO: いいねしたとこうが0件の場合、何かしらの処理をする
         if (likesSnapPostIds.length === 0) return;
-        likeSnapPosts(likesSnapPostIds);
+        likeSnapPosts(likesSnapPostIds, {
+            onSuccess: () => console.log('success'),
+            onError: (error) => console.log(error),
+        });
     };
+
     return {
         snapPosts: sortedSnapPosts,
         isSnapPostsLoading,
