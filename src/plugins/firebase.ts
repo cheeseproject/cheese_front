@@ -29,9 +29,9 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-initializeAuth(app, {
-    persistence: getReactNativePersistence(AsyncStorage),
-});
+// initializeAuth(app, {
+//     persistence: getReactNativePersistence(AsyncStorage),
+// });
 
 export const db = getFirestore(app);
 export const storage = getStorage(app);
@@ -39,8 +39,8 @@ export const auth = getAuth(app);
 export const functions = getFunctions(app);
 functions.region = 'asia-northeast1';
 
-// if (DEVELOP_MODE) {
-//     connectFunctionsEmulator(functions, 'localhost', 5001);
-//     connectFirestoreEmulator(db, 'localhost', 8080);
-//     connectAuthEmulator(auth, 'http://localhost:9099');
-// }
+if (DEVELOP_MODE) {
+    connectFunctionsEmulator(functions, '127.0.0.1', 5001);
+    connectFirestoreEmulator(db, '127.0.0.1', 8080);
+    connectAuthEmulator(auth, 'http://127.0.0.1:9099');
+}

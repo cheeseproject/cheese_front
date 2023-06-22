@@ -3,20 +3,18 @@ import { StyleSheet, View } from 'react-native';
 import { Card } from 'react-native-paper';
 
 type Props = {
-    item: {
-        id: number;
-        title: string;
-        image: string;
-    };
+    title: string;
+    imagePath: string;
+    comment?: string;
 };
 
-export const SubmitCard = ({ item }: Props) => {
+export const SubmitCard = ({ title, imagePath, comment }: Props) => {
     return (
         <View style={styles.container}>
             <Card style={styles.card}>
-                <Card.Title title="Card Title" subtitle="Card Subtitle" />
+                <Card.Title title={title} subtitle={comment} />
                 <Card.Content>
-                    <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+                    <Card.Cover source={{ uri: imagePath }} />
                 </Card.Content>
             </Card>
         </View>
