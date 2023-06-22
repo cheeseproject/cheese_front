@@ -1,28 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { FlatList, View,StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SubmitCard } from '../../components/myPage/SubmitCard';
 import { useMyPageScreen } from './useMaPageScreen';
 import { SnapPost } from '../../entities/SnapPost';
 import { ScreenLoader } from '../../components/common/ScreenLoader';
-import { Header } from './Header';
-import AppbarHeader from 'react-native-paper/lib/typescript/src/components/Appbar/AppbarHeader';
-import { Appbar, Avatar, Button, SegmentedButtons, Text, ToggleButton } from 'react-native-paper';
-import { useAuthUser } from '../../state/authUser';
+import { Appbar, Avatar, Button,Text, ToggleButton } from 'react-native-paper';
 import { useFetchMyUser } from '../../hooks/domain/user/useFetchUser';
 
 export const MyPageScreen = () => {
     const { mySnapPosts,likedSnapPosts } = useMyPageScreen();
    
-    // const {data: myUser} = useFetchMyUser();
-    const myUser = {name:'name',iconPath:'https://picsum.photos/200/300'}
+    const {data: myUser} = useFetchMyUser();
         // 現在選択中のボタンの値を管理する
     const [selectedButton, setSelectedButton] = useState<string>('post');
     const isActive = (value: string) => value === selectedButton;
-    
-    useEffect(() => {
-        console.log(myUser);
-    }, []);
 
     const renderSubmitCard = (snapPost: SnapPost) => (
         <View style={{ flex: 0.5 }}>     
@@ -45,7 +37,7 @@ export const MyPageScreen = () => {
                     <Appbar.Content title="マイページ" />
                 </Appbar.Header>
                 <View style={styles.profileInfo}>
-                    <Avatar.Image size={75} source={myUser.iconPath ? {uri:myUser.iconPath}:require('../../assets/profile/default.png')} />
+                    <Avatar.Image size={75} source={myUser?.iconPath ? {uri:myUser.iconPath}:require('../../assets/profile/default.png')} />
                     <Text style={styles.userName}>
                         {myUser?.name ? "@" + myUser.name : "Noname"}
                     </Text>
