@@ -50,30 +50,13 @@ export const useSubmitScreen = () => {
         );
     };
 
-    // const handleSubmitSnapPost = handleSubmit(async (data) => {
-    //     createSnapPost(data, {
-    //         onSuccess: goBack,
-    //         onError: (error) => console.log(error),
-    //     });
-    // });
-    const handleSubmitSnapPost = async () => {
-        const data = {
-            title: 'fugaの投稿',
-            longitude: 0,
-            latitude: 0,
-            postImages: [
-                {
-                    imagePath: 'https://picsum.photos/200/300',
-                },
-            ],
-            tags: ['test'],
-            comment: 'test',
-        };
+    const handleSubmitSnapPost = handleSubmit(async (data) => {
         createSnapPost(data, {
             onSuccess: () => console.log('success'),
             onError: (error) => console.log(error),
         });
-    };
+    });
+
 
     const goBack = () => {
         navigation.goBack();
