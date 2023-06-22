@@ -6,6 +6,7 @@ import {
 import { useFetchMyUser } from '../../hooks/domain/user/useFetchUser';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../types/navigation';
+import { useState } from 'react';
 
 export const useMyPageScreen = () => {
     const { data: mySnapPosts = [] } = useFetchMySnapPosts();
@@ -14,15 +15,24 @@ export const useMyPageScreen = () => {
 
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
+    // 現在選択中のボタンの値を管理する
+    const [selectedButton, setSelectedButton] = useState<string>('post');
+    const isActive = (value: string) => value === selectedButton;
+
     const handlePressSnapPost = (snapPostId: string) => {
-        console.log(snapPostId);
         navigation.navigate('MyPageDetail', { snapPostId });
     };
+
+    const handleChangeSelectedButton = (value: string) =>
+        setSelectedButton(value);
 
     return {
         mySnapPosts,
         likedSnapPosts,
         myUser,
         handlePressSnapPost,
+        selectedButton,
+        handleChangeSelectedButton,
+        isActive,
     };
 };
