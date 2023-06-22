@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Image, PanResponder } from 'react-native';
 import { Animated, Dimensions, SafeAreaView, View } from 'react-native';
+import { useHomeScreen } from './useHomeScreen';
 
 const pictures = [
     { id: 1, uri: 'https://picsum.photos/200/300' },
@@ -13,6 +14,8 @@ const pictures = [
 export const HomeScreen = () => {
     // 今の画像のインデックスを管理する
     const [currentIndex, setCurrentIndex] = useState(0);
+
+    const { snapPosts } = useHomeScreen();
 
     const SCREEN_HEIGHT = Dimensions.get('window').height;
     const SCREEN_WIDTH = Dimensions.get('window').width;

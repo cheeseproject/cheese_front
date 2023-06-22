@@ -56,26 +56,21 @@ export const useSubmitScreen = () => {
     //         onError: (error) => console.log(error),
     //     });
     // });
-
     const handleSubmitSnapPost = async () => {
         const data = {
+            title: 'fugaの投稿',
+            longitude: 0,
+            latitude: 0,
             postImages: [
                 {
                     imagePath: 'https://picsum.photos/200/300',
-                    tag: 'nature',
-                },
-                {
-                    imagePath: 'https://picsum.photos/200/300',
-                    tag: 'landscape',
                 },
             ],
-            title: 'Sample Post',
-            longitude: 123.456,
-            latitude: 78.901,
-            comment: 'This is a sample comment.',
+            tags: ['test'],
+            comment: 'test',
         };
         createSnapPost(data, {
-            onSuccess: goBack,
+            onSuccess: () => console.log('success'),
             onError: (error) => console.log(error),
         });
     };
