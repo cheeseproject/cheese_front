@@ -4,25 +4,25 @@ import { SignInScreen } from '../screens/SignInScreen';
 import { SignUpScreen } from '../screens/SignUpScreen';
 import { PAGE_NAVIGATION } from '../constants/pageNavigation';
 
-const authStack = createStackNavigator();
+const submitStack = createStackNavigator();
 
-export const AuthNavigator = () => {
+export const SubmitNavigator = () => {
     return (
-        <authStack.Navigator
-            initialRouteName={PAGE_NAVIGATION.SIGN_IN}
+        <submitStack.Navigator
+            initialRouteName={'SubmitMain'}
             screenOptions={{
                 headerShown: false,
             }}
         >
-            <authStack.Screen name={'SignIn'} component={SignInScreen} />
-            <authStack.Screen
-                name={'SignUp'}
+            <submitStack.Screen name={'SubmitMain'} component={SignInScreen} />
+            <submitStack.Screen
+                name={'SubmitMap'}
                 component={SignUpScreen}
                 options={{
                     presentation: 'modal',
                     headerShown: true,
                 }}
             />
-        </authStack.Navigator>
+        </submitStack.Navigator>
     );
 };
