@@ -3,8 +3,8 @@ export type SnapPost = {
     userId: string;
     postImages: Array<{
         imagePath: string;
-        tag: string;
     }>;
+    tags: Array<string>;
     title: string;
     comment?: string;
     longitude: number;

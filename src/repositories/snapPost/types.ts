@@ -6,9 +6,9 @@ export const SnapPostResponseScheme = z.object({
     postImages: z.array(
         z.object({
             imagePath: z.string(),
-            tag: z.string(),
         })
     ),
+    tags: z.array(z.string()),
     title: z.string(),
     comment: z.string().optional(),
     longitude: z.number(),
@@ -37,9 +37,9 @@ const CreateSnapPostRequestScheme = z.object({
     postImages: z.array(
         z.object({
             imagePath: z.string(),
-            tag: z.string(),
         })
     ),
+    tags: z.array(z.string()),
 });
 
 export type CreateSnapPostRequest = z.infer<typeof CreateSnapPostRequestScheme>;
@@ -59,15 +59,7 @@ export type LikeSnapPostRequest = z.infer<typeof LikeSnapPostRequestScheme>;
 const UpdateSnapPostRequestScheme = z.object({
     snapPostId: z.string(),
     title: z.string(),
-    comment: z.string(),
-    longitude: z.number(),
-    latitude: z.number(),
-    postImages: z.array(
-        z.object({
-            imagePath: z.string(),
-            tag: z.string(),
-        })
-    ),
+    comment: z.string().optional(),
 });
 
 export type UpdateSnapPostRequest = z.infer<typeof UpdateSnapPostRequestScheme>;
