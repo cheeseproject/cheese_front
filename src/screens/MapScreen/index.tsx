@@ -39,7 +39,7 @@ export const MapScreen = () => {
             // 選択されていない場合は追加する
             setSelectedPoints([...selectedPoints, latLng]);
         }
-        console.log(likedSnapPosts);
+        // console.log(likedSnapPosts);
     };
 
     let showMarker: SnapPost[] = [];
@@ -49,7 +49,7 @@ export const MapScreen = () => {
         showMarker = likedSnapPosts;
     }
 
-    console.log(showMarker);
+    // console.log(showMarker.length);
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
