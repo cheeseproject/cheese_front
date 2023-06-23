@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react';
-import { Image, ScrollView, StyleSheet, View } from 'react-native';
-import { Button, TextInput, Divider,Text } from 'react-native-paper';
+import React from 'react';
+import { ScrollView, StyleSheet,} from 'react-native';
+import { Button, TextInput, Divider, } from 'react-native-paper';
 import { useSubmitScreen } from './useSubmitScreen';
 // import ImageLabeling from '@react-native-ml-kit/image-labeling';
 import { Header } from './Header';
 import { Controller } from 'react-hook-form';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useRecoilValue } from 'recoil';
 import { useLatLng } from '../../state/LngLat';
 import { SelectedImages } from '../../components/submit/SelectedImages';
 
@@ -16,22 +15,7 @@ type Props = {
 };
 
 export const SubmitScreen = ({ navigation }: Props) => {
-    // const { handlePhotoEditBtn, handleSubmitSnapPost, goBack, control,selectedImages } = useSubmitScreen();
-    const { handlePhotoEditBtn, handleSubmitSnapPost, goBack, control, } = useSubmitScreen();
-    const selectedImages = [
-        {
-            fileUrl:'https://picsum.photos/200/300',
-            filePath:'https://picsum.photos/200/300',
-        },
-        {
-            fileUrl:'https://picsum.photos/200/300',
-            filePath:'https://picsum.photos/200/300',
-        },
-        {
-            fileUrl:'https://picsum.photos/200/300',
-            filePath:'https://picsum.photos/200/300',
-        },
-    ]
+    const { handlePhotoEditBtn, handleSubmitSnapPost, goBack, control,selectedImages } = useSubmitScreen();
     const { latLng } = useLatLng();
 
 
