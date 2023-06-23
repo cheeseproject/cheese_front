@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import {
@@ -65,6 +66,7 @@ export const SubmitScreen = ({ navigation }: Props) => {
     } = useSubmitScreen();
 
     const [showDropDown, setShowDropDown] = useState(false);
+    const { latLng } = useLatLng();
 
     const handleNavMap = () => {
         navigation.navigate('SubmitMap');
@@ -131,6 +133,7 @@ export const SubmitScreen = ({ navigation }: Props) => {
                 )}
                 name="comment"
             />
+
 
             <View style={{ paddingTop: 48 }}>
                 {/* HACK: 三項演算子が入れ子になって、可読性が悪い */}

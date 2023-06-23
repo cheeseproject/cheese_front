@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Image, SafeAreaView, StyleSheet } from 'react-native';
 import MapView, { LatLng, Marker } from 'react-native-maps';
-import { SegmentedButtons, Text } from 'react-native-paper';
+import { FAB, SegmentedButtons, Text } from 'react-native-paper';
 
 import { useMapScreen } from './useMapScreen';
 import { SnapPost } from '../../entities/SnapPost';
 import { CustomMarker } from './CustomMarker';
+import MapViewDirections from 'react-native-maps-directions';
+// @ts-ignore
+import { GCP } from '@env';
 
 export const MapScreen = () => {
     const {
@@ -22,7 +25,7 @@ export const MapScreen = () => {
     // ユーザー選択のいきたいポイント集
     const [selectedPoints, setSelectedPoints] = useState<LatLng[]>([]);
     // ルート表示用の途中ポイント集
-    const [transpoints, setTranspoints] = useState<SnapPost[]>([]);
+    const [transpoints, setTranspoints] = useState<LatLng[]>([]);
 
     // マーカークリック時
     const handleClickMarker = (latLng: LatLng) => {
@@ -39,7 +42,13 @@ export const MapScreen = () => {
             // 選択されていない場合は追加する
             setSelectedPoints([...selectedPoints, latLng]);
         }
-        console.log(likedSnapPosts);
+        console.log(selectedPoints);
+    };
+
+    // 道検索ボタン押すたびに道を再生成
+    const handleSearch = () => {
+        // const waypoints = selectedPoints.map((point) => ({ location: point }));
+        setTranspoints(selectedPoints);
     };
 
     let showMarker: SnapPost[] = [];
@@ -49,7 +58,7 @@ export const MapScreen = () => {
         showMarker = likedSnapPosts;
     }
 
-    console.log(showMarker);
+    // console.log(showMarker.length);
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -74,12 +83,26 @@ export const MapScreen = () => {
                                     key={snapPost.snapPostId}
                                     onClick={() =>
                                         handleClickMarker({
-                                            latitude: 0,
-                                            longitude: 0,
+                                            latitude: snapPost.latitude,
+                                            longitude: snapPost.longitude,
                                         })
                                     }
                                 />
                             ))}
+                        {transpoints.length > 0 && (
+                            <MapViewDirections
+                                origin={{
+                                    latitude: location.latitude,
+                                    longitude: location.longitude,
+                                }}
+                                destination={{
+                                    latitude: location.latitude,
+                                    longitude: location.longitude,
+                                }}
+                                waypoints={transpoints}
+                                apikey={GCP}
+                            />
+                        )}
                     </MapView>
                 ) : (
                     <Text>現在位置を取得できませんでした</Text>
@@ -109,6 +132,17 @@ export const MapScreen = () => {
                     },
                 ]}
                 style={styles.selectedBtn}
+            />
+            <FAB
+                style={{
+                    position: 'absolute',
+                    margin: 16,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: '#333',
+                }}
+                icon="plus"
+                onPress={handleSearch}
             />
         </SafeAreaView>
     );
