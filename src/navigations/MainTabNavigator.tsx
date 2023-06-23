@@ -45,7 +45,7 @@ export const MainTabNavigator = () => {
 
             <Tab.Screen
                 name="dummy"
-                component={MapScreen}
+                component={SubmitNavigator}
                 options={{
                     tabBarLabel: '投稿',
                     tabBarIcon: ({ color }) => (
@@ -79,7 +79,7 @@ export const MainTabNavigator = () => {
             />
             <Tab.Screen
                 name="MyPage"
-                component={SubmitNavigator}
+                component={MyPageScreen}
                 options={{
                     tabBarLabel: 'マイページ',
                     tabBarIcon: ({ color }) => (
