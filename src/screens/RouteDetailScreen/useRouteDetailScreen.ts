@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 export const useRouteDetailScreen = () => {
     const route = useRoute<RouteProp<RootStackParamList, 'RouteDetail'>>();
     const { data: snapRoutes, isLoading } = useFetchSnapRoute(
-        route.params.routeId
+        route.params.snapRouteId
     );
     const { mutate: updateSnapRoute } = useUpdateSnapRoute();
     const { mutate: deleteSnapRoute } = useDeleteSnapRoute();
@@ -41,7 +41,7 @@ export const useRouteDetailScreen = () => {
         if (!snapPostIds) return;
         updateSnapRoute(
             {
-                snapRouteId: route.params.routeId,
+                snapRouteId: route.params.snapRouteId,
                 title,
                 snapPostIds,
             },
@@ -52,7 +52,7 @@ export const useRouteDetailScreen = () => {
         );
     };
     const handelDeleteSnapRoute = () => {
-        deleteSnapRoute(route.params.routeId, {
+        deleteSnapRoute(route.params.snapRouteId, {
             onSuccess: () => console.log('success'),
             onError: (error) => console.log(error),
         });

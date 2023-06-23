@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Image, View } from 'react-native';
 import { Marker } from 'react-native-maps';
 import { FontAwesome } from '@expo/vector-icons';
+import { SnapPost } from '../../entities/SnapPost';
 
 type Props = {
-    snapPost: any;
+    snapPost: SnapPost;
     onClick: () => void;
 };
 
@@ -16,6 +17,8 @@ export const CustomMarker = ({ snapPost, onClick }: Props) => {
         onClick();
     };
 
+    // console.log(snapPost.latitude);
+
     return (
         <Marker
             coordinate={{
@@ -26,7 +29,7 @@ export const CustomMarker = ({ snapPost, onClick }: Props) => {
         >
             <Image source={require('../../assets/mapicon.png')} />
             <Image
-                source={{ uri: snapPost.snapPostImage }}
+                source={{ uri: snapPost.postImages[0].imagePath }}
                 style={{
                     width: 96,
                     height: 96,

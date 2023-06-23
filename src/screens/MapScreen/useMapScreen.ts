@@ -20,6 +20,10 @@ export const useMapScreen = () => {
     const { sessionSnapPost } = useSessionSnapPost();
     */
 
+    useEffect(() => {
+        console.log('snapPosts', snapPosts);
+    }, [snapPosts]);
+
     const [selectedSnapPostIds, setSelectedSnapPostIds] = useState<string[]>(
         []
     );

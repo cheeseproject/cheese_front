@@ -49,5 +49,7 @@ export const useMyPageDetailScreen = () => {
     return {
         isLoading,
         snapPost,
+        handleUpdateSnapPost,
+        handleDeleteSnapPost,
     };
 };
