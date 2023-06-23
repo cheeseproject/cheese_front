@@ -4,6 +4,35 @@ import MapView, { Marker } from 'react-native-maps';
 import { SegmentedButtons, Text } from 'react-native-paper';
 
 import { useMapScreen } from './useMapScreen';
+import { SnapPost } from '../../entities/SnapPost';
+
+
+const dummySnapPosts:any[] = [
+    {
+        snapPostId: '1',
+        userId: '1',
+        title: 'test',
+        longitude: 139.767125,
+        latitude: 35.681236,
+        snapPostImage: 'https://picsum.photos/200/300',
+    },
+    {
+        snapPostId: '2',
+        userId: '2',
+        title: 'test',
+        longitude: 132.777125,
+        latitude: 40.651236,
+        snapPostImage: 'https://picsum.photos/200/300',
+    },
+    {
+        snapPostId: '3',
+        userId: '3',
+        title: 'test',
+        longitude: 139.717125,
+        latitude: 35.680236,
+        snapPostImage: 'https://picsum.photos/200/300',
+    },];
+
 
 export const MapScreen = () => {
     const {
@@ -24,7 +53,8 @@ export const MapScreen = () => {
         showMarker=snapPosts;
     }
 
-    console.log(snapPosts);
+    showMarker=dummySnapPosts;
+
     
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -46,17 +76,21 @@ export const MapScreen = () => {
                             <Marker
                                 key={snapPost.snapPostId}
                                 coordinate={{
-                                    latitude:location.latitude,   
-                                    longitude: location.longitude,
+                                    latitude:snapPost.latitude,   
+                                    longitude: snapPost.longitude,
                                 }}
                                 onPress={() => {
                                     // addSnapPostIdToRoute(snapPost.id);
                                     // handleSubmitSnapRoute();
                                 }}
                             >
-                                {/* <Image
+                                <Image
                                     source={require('../../assets/mapicon.png')}
-                                /> */}
+                                />
+                                <Image
+                                    source={{ uri: snapPost.snapPostImage }}
+                                    style={{ width: 96, height: 96,position:'absolute',top:7,left:7,borderRadius:96/2 }}
+                                />
                             </Marker>
                         ))}
 
