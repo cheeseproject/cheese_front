@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
-import { Button, TextInput, Divider } from 'react-native-paper';
+import { Button, TextInput, Divider,Text } from 'react-native-paper';
 import { useSubmitScreen } from './useSubmitScreen';
 // import ImageLabeling from '@react-native-ml-kit/image-labeling';
 import { Header } from './Header';
@@ -9,16 +9,31 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useRecoilValue } from 'recoil';
 import { useLatLng } from '../../state/LngLat';
+import { SelectedImages } from '../../components/submit/SelectedImages';
 
 type Props = {
     navigation: StackNavigationProp<any>;
 };
 
 export const SubmitScreen = ({ navigation }: Props) => {
-    const { handlePhotoEditBtn, handleSubmitSnapPost, goBack, control } =
-        useSubmitScreen();
-
+    // const { handlePhotoEditBtn, handleSubmitSnapPost, goBack, control,selectedImages } = useSubmitScreen();
+    const { handlePhotoEditBtn, handleSubmitSnapPost, goBack, control, } = useSubmitScreen();
+    const selectedImages = [
+        {
+            fileUrl:'https://picsum.photos/200/300',
+            filePath:'https://picsum.photos/200/300',
+        },
+        {
+            fileUrl:'https://picsum.photos/200/300',
+            filePath:'https://picsum.photos/200/300',
+        },
+        {
+            fileUrl:'https://picsum.photos/200/300',
+            filePath:'https://picsum.photos/200/300',
+        },
+    ]
     const { latLng } = useLatLng();
+
 
     const handleNavMap = () => {
         navigation.navigate('SubmitMap');
@@ -74,7 +89,7 @@ export const SubmitScreen = ({ navigation }: Props) => {
                 }}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
-                        label={'コメント'}
+                        label={"コメント"}
                         multiline={true}
                         numberOfLines={10}
                         style={styles.textarea}
@@ -85,22 +100,19 @@ export const SubmitScreen = ({ navigation }: Props) => {
                 )}
                 name="comment"
             />
-            <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    paddingVertical: 16,
-                }}
-            >
-                {/* {image && (
-                <Image
-                    source={{ uri: image }}
-                    style={{ width: 200, height: 200 }}
-                />
-            )} */}
-            </ScrollView>
+            {selectedImages[0] && (
+                <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        paddingVertical: 16,
+                    }}
+                >        
+                    <SelectedImages selectedImages={selectedImages}/>
+                </ScrollView>
+            )}
 
             <Button
                 mode="contained"
@@ -119,13 +131,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         height: '100%',
     },
-
     textarea: {
-        height: 200,
+        height:150,
     },
     submitBtn: {
-        marginTop: 64,
-        width: 200,
+        marginTop:30,
+        marginBottom:30,
+        width: 150,
         borderRadius: 500,
         alignSelf: 'center',
     },

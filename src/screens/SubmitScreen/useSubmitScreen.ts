@@ -1,11 +1,12 @@
 import { STORAGE_KEYS } from '../../constants/storageKey';
-import { useUploadFile } from '../../hooks/storage/useUploadFile';
+import { UploadFileResult, useUploadFile } from '../../hooks/storage/useUploadFile';
 import * as ImagePicker from 'expo-image-picker';
 import { useLocationInformation } from '../../hooks/useLocationInformation';
 import { useCreateSnapPost } from '../../hooks/domain/snapPost/useCreateSnapPost';
 import { useForm } from 'react-hook-form';
 import { CreateSnapPostRequest } from '../../repositories/snapPost/types';
 import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
 
 export type FormValues = CreateSnapPostRequest;
 
@@ -14,6 +15,7 @@ export const useSubmitScreen = () => {
     const { mutate: uploadFile } = useUploadFile();
     const { mutate: createSnapPost } = useCreateSnapPost();
     const navigation = useNavigation();
+    const [selectedImages, setSelectedImages] = useState<UploadFileResult[]>([]);
 
     const {
         control,
@@ -44,7 +46,7 @@ export const useSubmitScreen = () => {
                 folderName: STORAGE_KEYS.SNAP_POST,
             },
             {
-                onSuccess: (data) => console.log(data),
+                onSuccess: (data) => setSelectedImages((prevState)=>[...prevState, data]),
                 onError: (error) => console.log(error),
             }
         );
@@ -60,11 +62,13 @@ export const useSubmitScreen = () => {
     const goBack = () => {
         navigation.goBack();
     };
+
     return {
         handleSubmitSnapPost,
         handlePhotoEditBtn,
         goBack,
         formErrors: errors,
         control,
+        selectedImages,
     };
 };
