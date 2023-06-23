@@ -57,7 +57,6 @@ export const useSubmitScreen = () => {
         });
     });
 
-
     const goBack = () => {
         navigation.goBack();
     };

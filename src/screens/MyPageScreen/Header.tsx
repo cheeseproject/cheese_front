@@ -3,7 +3,6 @@ import { Button, Appbar } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, Text, View } from 'react-native';
 
-
 export const Header = () => {
     return (
         <View style={styles.header}>
