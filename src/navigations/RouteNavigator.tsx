@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { RouteListScreen } from '../screens/RouteScreenList';
 import { RouteDetailScreen } from '../screens/RouteDetailScreen';
+import { RouteDetailTabNavigator } from './RouteDetailTabNavigator';
 
 const RouteStack = createStackNavigator();
 
@@ -10,15 +11,22 @@ export const RouteNavigator = () => {
         <RouteStack.Navigator
             initialRouteName={'RouteList'}
             screenOptions={{
-                headerShown: false,
+                headerShown: true,
             }}
         >
-            <RouteStack.Screen name={'RouteList'} component={RouteListScreen} />
+            <RouteStack.Screen
+                name={'RouteList'}
+                component={RouteListScreen}
+                options={{
+                    title: 'ルート一覧',
+                }}
+            />
             <RouteStack.Screen
                 name={'RouteDetail'}
-                component={RouteDetailScreen}
+                component={RouteDetailTabNavigator}
                 options={{
-                    headerShown: false,
+                    headerShown: true,
+                    title: '',
                 }}
             />
         </RouteStack.Navigator>

@@ -12,6 +12,7 @@ export const MyPageScreen = () => {
     const {
         mySnapPosts,
         likedSnapPosts,
+        isLoading,
         myUser,
         handlePressSnapPost,
         handleChangeSelectedButton,
@@ -20,26 +21,23 @@ export const MyPageScreen = () => {
     } = useMyPageScreen();
 
     const renderSubmitCard = (snapPost: SnapPost) => (
-        <View style={{ flex: 0.5 }}>
+        <View style={{ flex: 0.5, margin: 4 }}>
             <SubmitCard
                 title={snapPost.title}
                 comment={snapPost.comment}
                 tags={snapPost.tags}
-                imagePath={snapPost.postImages[0].imagePath}
+                imagePath={snapPost.postImages?.[0]?.imagePath}
                 onPress={() => handlePressSnapPost(snapPost.snapPostId)}
             />
         </View>
     );
 
-    if (!mySnapPosts) {
+    if (isLoading) {
         return <ScreenLoader />;
     }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <Appbar.Header style={styles.header}>
-                <Appbar.Content title="マイページ" />
-            </Appbar.Header>
+        <View style={styles.container}>
             <View style={styles.profileInfo}>
                 <Avatar.Image
                     size={75}
@@ -86,7 +84,6 @@ export const MyPageScreen = () => {
                 style={{
                     flexDirection: 'row',
                     overflow: 'scroll',
-                    maxHeight: 270,
                     backgroundColor: '#f0f0f0',
                 }}
             >
@@ -97,19 +94,15 @@ export const MyPageScreen = () => {
                     numColumns={2}
                 />
             </View>
-        </SafeAreaView>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
-    header: {
-        height: 40,
-        backgroundColor: '#fff',
-        borderBottomWidth: 1,
-        borderBottomColor: '#ddd',
-    },
     container: {
         backgroundColor: '#fff',
+        paddingBottom: 480,
+        // HACK: これを入れないと、FlatListの中身が表示されない.他にいい方法があれば変更する
     },
     checkedBtn: {
         border: 'none',

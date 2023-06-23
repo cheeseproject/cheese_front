@@ -10,12 +10,15 @@ export const MyPageNavigator = () => {
         <myPageStack.Navigator
             initialRouteName={'MyPageProfile'}
             screenOptions={{
-                headerShown: false,
+                headerShown: true,
             }}
         >
             <myPageStack.Screen
                 name={'MyPageProfile'}
                 component={MyPageScreen}
+                options={{
+                    title: 'マイページ',
+                }}
             />
             <myPageStack.Screen
                 name={'MyPageDetail'}

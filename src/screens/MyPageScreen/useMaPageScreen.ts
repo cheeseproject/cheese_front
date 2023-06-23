@@ -9,9 +9,11 @@ import { RootStackParamList } from '../../types/navigation';
 import { useState } from 'react';
 
 export const useMyPageScreen = () => {
-    const { data: mySnapPosts = [] } = useFetchMySnapPosts();
-    const { data: myUser } = useFetchMyUser();
-    const { data: likedSnapPosts = [] } = useFetchLikedSnapPosts();
+    const { data: mySnapPosts = [], isLoading: isLoadingSnapPost } =
+        useFetchMySnapPosts();
+    const { data: myUser, isLoading: isLoadingUser } = useFetchMyUser();
+    const { data: likedSnapPosts = [], isLoading: isLoadingLiked } =
+        useFetchLikedSnapPosts();
 
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
@@ -34,5 +36,6 @@ export const useMyPageScreen = () => {
         selectedButton,
         handleChangeSelectedButton,
         isActive,
+        isLoading: isLoadingSnapPost || isLoadingUser || isLoadingLiked,
     };
 };

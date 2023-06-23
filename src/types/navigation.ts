@@ -11,5 +11,7 @@ export type RootStackParamList = {
     MyPageProfile: undefined;
     MyPageDetail: { snapPostId: string };
     RouteList: undefined;
-    RouteDetail: { routeId: string };
+    RouteDetail: { snapRouteId: string };
+    RouteDetailMap: undefined;
+    RouteDetailRoute: undefined;
 };
