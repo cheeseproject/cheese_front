@@ -23,10 +23,17 @@ export const SubmitMapScreen = ({ navigation }: Props) => {
     const handleGoBack = () => {
         navigation.goBack();
     };
-    console.log(location);
+
+    const handleCancel = () => {
+        navigation.goBack();
+    };
+
+    const handleAccept = () => {
+        navigation.goBack();
+    };
 
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
             <Appbar.Header>
                 <Appbar.BackAction onPress={handleGoBack} />
                 <Appbar.Content
@@ -55,11 +62,24 @@ export const SubmitMapScreen = ({ navigation }: Props) => {
                     <Text>現在位置を取得できませんでした</Text>
                 )
             }
-            <View style={styles.BottomBtn}>
-                <Button mode="contained">キャンセル</Button>
-                <Button>完了</Button>
+            <View style={styles.BottomBtnContainer}>
+                <View style={styles.btnBtn}>
+                    <Button
+                        mode="outlined"
+                        style={styles.Btn}
+                        onPress={handleCancel}
+                    >
+                        キャンセル
+                    </Button>
+                </View>
+
+                <View style={styles.btnBtn}>
+                    <Button mode="contained" style={styles.Btn}>
+                        完了
+                    </Button>
+                </View>
             </View>
-        </SafeAreaView>
+        </View>
     );
 };
 
@@ -69,7 +89,7 @@ const styles = StyleSheet.create({
         height: '100%',
         flex: 1,
     },
-    BottomBtn: {
+    BottomBtnContainer: {
         borderTopColor: '#999',
         borderTopWidth: 1,
         backgroundColor: 'white',
@@ -79,7 +99,15 @@ const styles = StyleSheet.create({
         zIndex: 100,
         width: '100%',
         height: 60,
-        padding: 4,
+        padding: 8,
         flexDirection: 'row',
+    },
+    btnBtn: {
+        flexGrow: 1,
+        width: '50%',
+    },
+    Btn: {
+        // width: '80%',
+        marginHorizontal: 8,
     },
 });
