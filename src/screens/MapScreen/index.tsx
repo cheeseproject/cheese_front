@@ -40,11 +40,12 @@ export const MapScreen = () => {
                 )
             }
             <SegmentedButtons
+
                 value={selectedButton}
                 onValueChange={handleChangeSelectedButton}
                 buttons={[
-                    { label: 'すべて', value: 'all' },
-                    { label: 'おすすめ', value: 'recommend' },
+                    { label: 'すべて', value: 'all',style: {backgroundColor: selectedButton === 'all' ? '#333' : '#fff'}  },
+                    { label: 'おすすめ', value: 'recommend',style: {backgroundColor: selectedButton === 'recommend' ? '#333' : '#fff'} },
                 ]}
                 style={styles.selectedBtn}
             />
@@ -58,6 +59,7 @@ const styles = StyleSheet.create({
     },
     selectedBtn: {
         position: 'absolute',
+        // backgroundColor: 'white',
         top: 80,
         left: 0,
         zIndex: 100,
