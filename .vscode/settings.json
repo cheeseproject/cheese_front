@@ -4,5 +4,7 @@
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
     },
-    "cSpell.words": ["hoge"]
+    "cSpell.words": ["hoge"],
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true
 }

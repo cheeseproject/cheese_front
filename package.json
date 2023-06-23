@@ -7,7 +7,8 @@
         "android": "expo start --android",
         "ios": "expo start --ios",
         "web": "expo start --web",
-        "lint": "eslint --ext .tsx --ext .ts src/"
+        "lint": "eslint --ext .tsx --ext .ts src/",
+        "format": "prettier --write ."
     },
     "lint-staged": {
         "src/**/*.{ts,tsx}": [
@@ -39,6 +40,7 @@
         "firebase": "^9.0.0",
         "husky": "^8.0.3",
         "lint-staged": "^13.2.2",
+        "prettier": "^2.8.8",
         "random": "^4.1.0",
         "react": "18.2.0",
         "react-hook-form": "^7.44.3",
