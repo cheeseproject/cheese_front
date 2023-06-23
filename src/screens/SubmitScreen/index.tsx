@@ -6,10 +6,19 @@ import { useSubmitScreen } from './useSubmitScreen';
 import { Header } from './Header';
 import { Controller } from 'react-hook-form';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-export const SubmitScreen = () => {
+type Props = {
+    navigation: StackNavigationProp<any>;
+};
+
+export const SubmitScreen = ({ navigation }: Props) => {
     const { handlePhotoEditBtn, handleSubmitSnapPost, goBack, control } =
         useSubmitScreen();
+
+    const handleNavMap = () => {
+        navigation.navigate('Home');
+    };
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -43,7 +52,7 @@ export const SubmitScreen = () => {
                         right={
                             <TextInput.Icon
                                 icon="map-marker"
-                                onPress={() => console.log('aa')}
+                                onPress={handleNavMap}
                             />
                         }
                         onBlur={onBlur}
@@ -80,13 +89,15 @@ export const SubmitScreen = () => {
                     justifyContent: 'center',
                     paddingVertical: 16,
                 }}
-            ></ScrollView>
-            {/* {image && (
+            >
+                {/* {image && (
                 <Image
                     source={{ uri: image }}
                     style={{ width: 200, height: 200 }}
                 />
             )} */}
+            </ScrollView>
+
             <Button
                 mode="contained"
                 icon={'camera'}
