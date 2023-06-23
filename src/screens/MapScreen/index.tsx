@@ -96,7 +96,7 @@ export const MapScreen = () => {
                         showsCompass={true}
                     >
                         {showMarker&&showMarker.map((snapPost) => (
-                            <CustomMarker snapPost={snapPost} key={snapPost.snapPostId} />
+                            <CustomMarker snapPost={snapPost} key={snapPost.snapPostId} onClick={()=>handleClickMarker({latitude:0,longitude:0})} />
                         ))}
 
                     </MapView>
