@@ -1,21 +1,95 @@
 import React, { useRef, useState } from 'react';
-import { Image, PanResponder } from 'react-native';
-import { Animated, Dimensions, SafeAreaView, View } from 'react-native';
-import { useHomeScreen } from './useHomeScreen';
+import {PanResponder,StyleSheet, } from 'react-native';
+import { Animated, Dimensions, SafeAreaView, View,Image } from 'react-native';
+import { SnapPost } from '../../entities/SnapPost';
+import { SwipeCard } from './SwipeCard';
+import { AntDesign, Entypo } from "@expo/vector-icons";
 
-const pictures = [
-    { id: 1, uri: 'https://picsum.photos/200/300' },
-    { id: 3, uri: 'https://picsum.photos/200/300' },
-    { id: 4, uri: 'https://picsum.photos/200/300' },
-    { id: 5, uri: 'https://picsum.photos/200/300' },
-    { id: 6, uri: 'https://picsum.photos/200/300' },
+const snapPosts:SnapPost[] = [
+    {
+        snapPostId: '1',
+        userId: '1',
+        title: 'test',
+        longitude: 139.767125,
+        latitude: 35.681236,
+        postImages: [
+            {
+                imagePath: 'https://picsum.photos/200/300',
+            },
+            {
+                imagePath: 'https://picsum.photos/200/400',
+            },
+            // {
+            //     imagePath: 'https://picsum.photos/200/400',
+            // },
+            // {
+            //     imagePath: 'https://picsum.photos/200/400',
+            // },
+        ],
+        tags: ["test1","test2"],
+        comment: "test",
+        likedCount: 1,
+        postedUser: {
+            userId: '1',
+            name: 'test',
+            iconPath: 'https://picsum.photos/200/300',
+        },
+        postedAt: new Date(),
+        updatedAt: new Date(),
+    },
+    {
+        snapPostId: '1',
+        userId: '1',
+        title: 'test',
+        longitude: 139.767125,
+        latitude: 35.681236,
+        postImages: [
+            {
+                imagePath: 'https://picsum.photos/200/300',
+            },
+        ],
+        tags: ["test1","test2"],
+        comment: "test",
+        likedCount: 1,
+        postedUser: {
+            userId: '1',
+            name: 'test',
+            iconPath: 'https://picsum.photos/200/300',
+        },
+        postedAt: new Date(),
+        updatedAt: new Date(),
+    },
+    {
+        snapPostId: '1',
+        userId: '1',
+        title: 'test',
+        longitude: 139.767125,
+        latitude: 35.681236,
+        postImages: [
+            {
+                imagePath: 'https://picsum.photos/200/300',
+            },
+        ],
+        tags: ["test1","test2"],
+        comment: "test",
+        likedCount: 1,
+        postedUser: {
+            userId: '1',
+            name: 'test',
+            iconPath: 'https://picsum.photos/200/300',
+        },
+        postedAt: new Date(),
+        updatedAt: new Date(),
+    },
 ];
 
 export const HomeScreen = () => {
     // 今の画像のインデックスを管理する
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const { snapPosts } = useHomeScreen();
+    // const { snapPosts } = useHomeScreen();
+
+
 
     const SCREEN_HEIGHT = Dimensions.get('window').height;
     const SCREEN_WIDTH = Dimensions.get('window').width;
@@ -84,16 +158,16 @@ export const HomeScreen = () => {
         extrapolate: 'clamp',
     });
 
-    const RenderPictures = () => {
-        return pictures
-            .map((picture, i) => {
+    
+        const RenderPictures = () => {
+        return snapPosts.map((snapPost, i) => {
                 if (i < currentIndex) {
                     return null;
                 }
                 if (i === currentIndex) {
                     return (
                         <Animated.View
-                            {...panResponder.panHandlers}
+                            {...panResponder?.panHandlers}
                             key={i}
                             style={[
                                 {
@@ -108,13 +182,8 @@ export const HomeScreen = () => {
                                 },
                             ]}
                         >
-                            <Image
-                                style={{
-                                    flex: 1,
-                                    resizeMode: 'cover',
-                                    borderRadius: 20,
-                                }}
-                                source={{ uri: picture.uri }}
+                            <SwipeCard
+                                snapPost={snapPost}
                             />
                         </Animated.View>
                     );
@@ -135,13 +204,8 @@ export const HomeScreen = () => {
                                 },
                             ]}
                         >
-                            <Image
-                                style={{
-                                    flex: 1,
-                                    resizeMode: 'cover',
-                                    borderRadius: 20,
-                                }}
-                                source={{ uri: picture.uri }}
+                            <SwipeCard
+                                snapPost={snapPost}
                             />
                         </Animated.View>
                     );
@@ -152,7 +216,62 @@ export const HomeScreen = () => {
 
     return (
         <SafeAreaView>
-            <View style={{ flex: 1 }}>{RenderPictures()}</View>
+            <View >
+                {RenderPictures()}
+                <View style={styles.dislike}>
+                    <Entypo name="cross" size={30} color="#666666" style={styles.dislikeIcon}/>
+                </View>
+                <View style={styles.like}>
+                    <Image source={require("../../assets/home/like.png")}  style={styles.likeIcon}/>
+                </View>
+            </View>
         </SafeAreaView>
     );
 };
+const styles = StyleSheet.create({
+    dislike:{
+        position: 'absolute',
+        top: 500,
+        left: 100,
+        zIndex: 1000,
+        backgroundColor: '#fff',
+        padding: 12,
+        borderRadius: 100,
+        shadowColor: 'rgba(0, 0, 0, 0.25)',
+        shadowOffset: {
+            width: 0,
+            height: 0,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 1.5,
+        elevation: 2, // Android向けの影の設定
+    },
+    like:{
+        position: 'absolute',
+        top: 500,
+        right: 100,
+        zIndex: 1000,
+        backgroundColor: '#fff',
+        padding: 15,
+        borderRadius: 100,
+        shadowColor: 'rgba(0, 0, 0, 0.25)',
+        shadowOffset: {
+            width: 0,
+            height: 0,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 1.5,
+        elevation: 2, // Android向けの影の設定
+    },
+    likeIcon:{
+        width: 25,
+        height: 25,
+        objectFit: 'contain',
+    },
+    dislikeIcon:{
+        width: 30,
+        height: 30,
+        objectFit: 'contain',
+    }
+})
+
