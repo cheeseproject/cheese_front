@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { Image, SafeAreaView, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { SegmentedButtons, Text } from 'react-native-paper';
 
@@ -33,7 +33,12 @@ export const MapScreen = () => {
                         showsUserLocation={true}
                         showsCompass={true}
                     >
-                        <Marker coordinate={location} />
+                        <Marker coordinate={location} >
+                            <Image
+                                source={require('../../assets/mapicon.png')}
+                            />
+
+                        </Marker>
                     </MapView>
                 ) : (
                     <Text>現在位置を取得できませんでした</Text>
