@@ -32,5 +32,6 @@ export const useHomeScreen = () => {
     return {
         snapPosts: sortedSnapPosts,
         isSnapPostsLoading,
+        addLikedSnapPost,
     };
 };
