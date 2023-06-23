@@ -3,10 +3,14 @@ import { useLocationInformation } from '../../hooks/useLocationInformation';
 import { useEffect, useMemo, useState } from 'react';
 import { useFetchSnapPostsByGeographyRange } from '../../hooks/domain/snapPost/useFetchSnapPost';
 import { useLikeSnapPosts } from '../../hooks/domain/snapPost/useLikeSnapPost';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../types/navigation';
 
 export const useHomeScreen = () => {
     const { location } = useLocationInformation();
     const [likesSnapPostIds, setLikesSnapPostIds] = useState<string[]>([]);
+    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
     const { data: snapPosts = [], isLoading: isSnapPostsLoading } =
         useFetchSnapPostsByGeographyRange(location);
@@ -20,7 +24,7 @@ export const useHomeScreen = () => {
     };
 
     // NOTE: ここの処理はMapScreenかも？
-    const handleLSubmitLikedIds = () => {
+    const handleSubmitLikedIds = () => {
         // TODO: いいねしたとこうが0件の場合、何かしらの処理をする
         if (likesSnapPostIds.length === 0) return;
         likeSnapPosts(likesSnapPostIds, {
@@ -29,20 +33,16 @@ export const useHomeScreen = () => {
         });
     };
 
-    useEffect(() => {
-        const ids = [
-            'fdee788c-5386-40cd-bc7e-a83aa5e85a70',
-            '381b1f20-d3af-4879-a97f-8e6f75d57fa0',
-            '5bc6181b-4f4d-42a8-afd6-e0945da1e338',
-        ];
-        likeSnapPosts(ids, {
-            onSuccess: () => console.log('success'),
-            onError: (error) => console.log(error),
-        });
-    }, []);
+    const handleRouteMap = () => {
+        navigation.navigate('Map');
+    };
 
     return {
         snapPosts: sortedSnapPosts,
         isSnapPostsLoading,
+        addLikedSnapPost,
+        handleSubmitLikedIds,
+        likesSnapPostIds,
+        handleRouteMap,
     };
 };
