@@ -1,15 +1,28 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, TextInput, Divider } from 'react-native-paper';
 import { useSubmitScreen } from './useSubmitScreen';
 // import ImageLabeling from '@react-native-ml-kit/image-labeling';
 import { Header } from './Header';
 import { Controller } from 'react-hook-form';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { useRecoilValue } from 'recoil';
+import { useLatLng } from '../../state/LngLat';
 
-export const SubmitScreen = () => {
+type Props = {
+    navigation: StackNavigationProp<any>;
+};
+
+export const SubmitScreen = ({ navigation }: Props) => {
     const { handlePhotoEditBtn, handleSubmitSnapPost, goBack, control } =
         useSubmitScreen();
+
+    const { latLng } = useLatLng();
+
+    const handleNavMap = () => {
+        navigation.navigate('SubmitMap');
+    };
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -43,12 +56,12 @@ export const SubmitScreen = () => {
                         right={
                             <TextInput.Icon
                                 icon="map-marker"
-                                onPress={() => console.log('aa')}
+                                onPress={handleNavMap}
                             />
                         }
                         onBlur={onBlur}
                         onChangeText={onChange}
-                        value={value}
+                        value={`緯度:${latLng.latitude} 経度:${latLng.longitude}`}
                     />
                 )}
                 name="title"
@@ -72,13 +85,23 @@ export const SubmitScreen = () => {
                 )}
                 name="comment"
             />
-
-            {/* {image && (
+            <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    paddingVertical: 16,
+                }}
+            >
+                {/* {image && (
                 <Image
                     source={{ uri: image }}
                     style={{ width: 200, height: 200 }}
                 />
             )} */}
+            </ScrollView>
+
             <Button
                 mode="contained"
                 icon={'camera'}
