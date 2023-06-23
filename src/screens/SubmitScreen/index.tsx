@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import {
@@ -6,6 +5,7 @@ import {
     TextInput,
     Divider,
     ActivityIndicator,
+    useTheme,
 } from 'react-native-paper';
 import { useSubmitScreen } from './useSubmitScreen';
 // import ImageLabeling from '@react-native-ml-kit/image-labeling';
@@ -113,6 +113,12 @@ export const SubmitScreen = ({ navigation }: Props) => {
                 list={TAG_LIST}
                 multiSelect
                 mode={'flat'}
+                theme={useTheme()}
+                // dropDownStyle={{ backgroundColor: '#fff' }}
+                // dropDownItemStyle={{ backgroundColor: '#fff' }}
+                // dropDownItemSelectedStyle={{ backgroundColor: '#fff' }}
+                dropDownItemSelectedTextStyle={{ color: '#ecc433' }}
+                dropDownItemTextStyle={{ color: '#000' }} // ドロップダウン内のテキストの色を指定します
             />
 
             <Controller
@@ -133,7 +139,6 @@ export const SubmitScreen = ({ navigation }: Props) => {
                 )}
                 name="comment"
             />
-
 
             <View style={{ paddingTop: 48 }}>
                 {/* HACK: 三項演算子が入れ子になって、可読性が悪い */}
