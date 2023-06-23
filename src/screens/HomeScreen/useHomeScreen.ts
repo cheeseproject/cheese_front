@@ -1,6 +1,6 @@
 import { shuffle } from 'fast-shuffle';
 import { useLocationInformation } from '../../hooks/useLocationInformation';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useFetchSnapPostsByGeographyRange } from '../../hooks/domain/snapPost/useFetchSnapPost';
 import { useLikeSnapPosts } from '../../hooks/domain/snapPost/useLikeSnapPost';
 

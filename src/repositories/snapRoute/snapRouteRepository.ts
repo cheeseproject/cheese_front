@@ -9,6 +9,7 @@ import {
     SnapRouteResponseScheme,
     UpdateSnapRouteRequest,
 } from './types';
+import { removeNulls } from '../../libs/nullToUndefined';
 
 export const snapRouteRepository = {
     create: async (params: CreateSnapRouteRequest): Promise<void> => {
@@ -27,11 +28,11 @@ export const snapRouteRepository = {
         params: FetchSnapRouteRequest
     ): Promise<SnapRouteResponse> => {
         const res = await httpsCallable(functions, 'fetchSnapRoute')(params);
-        return SnapRouteResponseScheme.parse(res.data);
+        return SnapRouteResponseScheme.parse(removeNulls(res.data));
     },
 
     fetchMy: async (): Promise<SnapRouteResponse[]> => {
         const res = await httpsCallable(functions, 'fetchMySnapRoutes')();
-        return SnapRouteResponseListScheme.parse(res.data);
+        return SnapRouteResponseListScheme.parse(removeNulls(res.data));
     },
 };

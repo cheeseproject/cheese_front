@@ -1,6 +1,8 @@
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import React from 'react';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { MapScreen } from '../screens/MapScreen';
 import { HomeScreen } from '../screens/HomeScreen';
 import { MyPageNavigator } from './MyPageNavigator';
@@ -49,11 +51,7 @@ export const MainTabNavigator = () => {
                 options={{
                     tabBarLabel: '投稿',
                     tabBarIcon: ({ color }) => (
-                        <MaterialCommunityIcons
-                            name="account-settings"
-                            color={color}
-                            size={26}
-                        />
+                        <AntDesign name="plussquareo" color={color} size={26} />
                     ),
                 }}
                 listeners={({ navigation }) => ({
@@ -69,11 +67,7 @@ export const MainTabNavigator = () => {
                 options={{
                     tabBarLabel: 'ルート一覧',
                     tabBarIcon: ({ color }) => (
-                        <MaterialCommunityIcons
-                            name="account-settings"
-                            color={color}
-                            size={26}
-                        />
+                        <FontAwesome5 name="route" color={color} size={26} />
                     ),
                 }}
             />
@@ -81,6 +75,7 @@ export const MainTabNavigator = () => {
                 name="MyPage"
                 component={MyPageNavigator}
                 options={{
+                    title: 'マイページ',
                     tabBarLabel: 'マイページ',
                     tabBarIcon: ({ color }) => (
                         <MaterialCommunityIcons

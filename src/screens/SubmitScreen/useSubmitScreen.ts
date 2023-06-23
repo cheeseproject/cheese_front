@@ -6,6 +6,7 @@ import { useCreateSnapPost } from '../../hooks/domain/snapPost/useCreateSnapPost
 import { useForm } from 'react-hook-form';
 import { CreateSnapPostRequest } from '../../repositories/snapPost/types';
 import { useNavigation } from '@react-navigation/native';
+import { useEffect } from 'react';
 
 export type FormValues = CreateSnapPostRequest;
 
