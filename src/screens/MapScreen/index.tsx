@@ -20,8 +20,8 @@ const dummySnapPosts:any[] = [
         snapPostId: '2',
         userId: '2',
         title: 'test',
-        longitude: 132.777125,
-        latitude: 40.651236,
+        longitude: 139.797125,
+        latitude: 36.051236,
         snapPostImage: 'https://picsum.photos/200/300',
     },
     {
