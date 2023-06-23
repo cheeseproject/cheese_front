@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { Image, SafeAreaView, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { SegmentedButtons, Text } from 'react-native-paper';
 
@@ -17,6 +17,15 @@ export const MapScreen = () => {
         handleChangeSelectedButton,
     } = useMapScreen();
 
+    let showMarker=null;
+    if( selectedButton=='all'){
+        showMarker=snapPosts;
+    }else if(selectedButton=='recommend'){
+        showMarker=snapPosts;
+    }
+
+    console.log(snapPosts);
+    
     return (
         <SafeAreaView style={{ flex: 1 }}>
             {
@@ -33,7 +42,24 @@ export const MapScreen = () => {
                         showsUserLocation={true}
                         showsCompass={true}
                     >
-                        <Marker coordinate={location} />
+                        {showMarker&&showMarker.map((snapPost) => (
+                            <Marker
+                                key={snapPost.snapPostId}
+                                coordinate={{
+                                    latitude:location.latitude,   
+                                    longitude: location.longitude,
+                                }}
+                                onPress={() => {
+                                    // addSnapPostIdToRoute(snapPost.id);
+                                    // handleSubmitSnapRoute();
+                                }}
+                            >
+                                {/* <Image
+                                    source={require('../../assets/mapicon.png')}
+                                /> */}
+                            </Marker>
+                        ))}
+
                     </MapView>
                 ) : (
                     <Text>現在位置を取得できませんでした</Text>
@@ -43,8 +69,8 @@ export const MapScreen = () => {
                 value={selectedButton}
                 onValueChange={handleChangeSelectedButton}
                 buttons={[
-                    { label: 'すべて', value: 'all' },
-                    { label: 'おすすめ', value: 'recommend' },
+                    { label: 'すべて', value: 'all',style: {backgroundColor: selectedButton === 'all' ? '#333' : '#fff'}  },
+                    { label: 'おすすめ', value: 'recommend',style: {backgroundColor: selectedButton === 'recommend' ? '#333' : '#fff'} },
                 ]}
                 style={styles.selectedBtn}
             />
@@ -58,6 +84,7 @@ const styles = StyleSheet.create({
     },
     selectedBtn: {
         position: 'absolute',
+        // backgroundColor: 'white',
         top: 80,
         left: 0,
         zIndex: 100,
