@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Image, SafeAreaView, StyleSheet } from 'react-native';
 import MapView, { LatLng, Marker } from 'react-native-maps';
-import { SegmentedButtons, Text } from 'react-native-paper';
+import { FAB, SegmentedButtons, Text } from 'react-native-paper';
 
 import { useMapScreen } from './useMapScreen';
 import { SnapPost } from '../../entities/SnapPost';
 import { CustomMarker } from './CustomMarker';
 import MapViewDirections from 'react-native-maps-directions';
+// @ts-ignore
+import { GCP } from '@env';
 
 export const MapScreen = () => {
     const {
@@ -98,7 +100,7 @@ export const MapScreen = () => {
                                     longitude: location.longitude,
                                 }}
                                 waypoints={transpoints}
-                                apikey=""
+                                apikey={GCP}
                             />
                         )}
                     </MapView>
@@ -130,6 +132,17 @@ export const MapScreen = () => {
                     },
                 ]}
                 style={styles.selectedBtn}
+            />
+            <FAB
+                style={{
+                    position: 'absolute',
+                    margin: 16,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: '#333',
+                }}
+                icon="plus"
+                onPress={handleSearch}
             />
         </SafeAreaView>
     );
