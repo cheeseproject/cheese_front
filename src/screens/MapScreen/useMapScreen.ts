@@ -21,7 +21,7 @@ export const useMapScreen = () => {
     */
 
     useEffect(() => {
-        console.log('snapPosts', snapPosts);
+        console.log('snapPosts', snapPosts.length);
     }, [snapPosts]);
 
     const [selectedSnapPostIds, setSelectedSnapPostIds] = useState<string[]>(
@@ -30,7 +30,7 @@ export const useMapScreen = () => {
     const [title, setTitle] = useState<string>();
 
     // 現在選択中のボタンの値を管理する
-    const [selectedButton, setSelectedButton] = useState<string>('all');
+    const [selectedButton, setSelectedButton] = useState<string>('');
 
     const { mutate: createSnapRoute } = useCreateSnapRoute();
 
