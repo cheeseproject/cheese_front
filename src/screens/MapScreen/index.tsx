@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Image, SafeAreaView, StyleSheet } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { LatLng, Marker } from 'react-native-maps';
 import { SegmentedButtons, Text } from 'react-native-paper';
 
 import { useMapScreen } from './useMapScreen';
 import { SnapPost } from '../../entities/SnapPost';
+import { CustomMarker } from './CustomMarker';
 
 
 const dummySnapPosts:any[] = [
@@ -46,6 +47,28 @@ export const MapScreen = () => {
         handleChangeSelectedButton,
     } = useMapScreen();
 
+    // ユーザー選択のいきたいポイント集
+    const [selectedPoints, setSelectedPoints] = useState<LatLng[]>([]);
+    // ルート表示用の途中ポイント集
+    const [transpoints, setTranspoints] = useState<SnapPost[]>([]);
+
+    // マーカークリック時
+    const handleClickMarker = (latLng: LatLng) => {
+        const contained = selectedPoints.findIndex(
+            (p) => p.latitude === latLng.latitude && p.longitude === latLng.longitude,
+        );
+        if (contained >= 0) {
+            const newPoints = [...selectedPoints];
+            newPoints.splice(contained, 1);
+            setSelectedPoints(newPoints);
+        } else {
+            // 選択されていない場合は追加する
+            setSelectedPoints([...selectedPoints, latLng]);
+        }
+        console.log(selectedPoints);
+    };
+
+
     let showMarker=null;
     if( selectedButton=='all'){
         showMarker=snapPosts;
@@ -73,25 +96,7 @@ export const MapScreen = () => {
                         showsCompass={true}
                     >
                         {showMarker&&showMarker.map((snapPost) => (
-                            <Marker
-                                key={snapPost.snapPostId}
-                                coordinate={{
-                                    latitude:snapPost.latitude,   
-                                    longitude: snapPost.longitude,
-                                }}
-                                onPress={() => {
-                                    // addSnapPostIdToRoute(snapPost.id);
-                                    // handleSubmitSnapRoute();
-                                }}
-                            >
-                                <Image
-                                    source={require('../../assets/mapicon.png')}
-                                />
-                                <Image
-                                    source={{ uri: snapPost.snapPostImage }}
-                                    style={{ width: 96, height: 96,position:'absolute',top:7,left:7,borderRadius:96/2 }}
-                                />
-                            </Marker>
+                            <CustomMarker snapPost={snapPost} key={snapPost.snapPostId} />
                         ))}
 
                     </MapView>
