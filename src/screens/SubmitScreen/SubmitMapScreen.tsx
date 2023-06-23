@@ -1,5 +1,5 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Header } from './Header';
 import { Appbar, Text } from 'react-native-paper';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -13,11 +13,20 @@ type Props = {
 export const SubmitMapScreen = ({ navigation }: Props) => {
     const { location } = useLocationInformation();
 
+    const [markerCoords, setMarkerCoords] = useState(null);
+
+    const handleMapPress = (event) => {
+        const { coordinate } = event.nativeEvent;
+        setMarkerCoords(coordinate);
+    };
+
     const handleGoBack = () => {
         navigation.goBack();
     };
+    console.log(location);
+
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{ flex: 1 }}>
             <Appbar.Header>
                 <Appbar.BackAction onPress={handleGoBack} />
                 <Appbar.Content
@@ -38,8 +47,9 @@ export const SubmitMapScreen = ({ navigation }: Props) => {
                         }}
                         showsUserLocation={true}
                         showsCompass={true}
+                        onPress={handleMapPress}
                     >
-                        <Marker coordinate={location} />
+                        {markerCoords && <Marker coordinate={markerCoords} />}
                     </MapView>
                 ) : (
                     <Text>現在位置を取得できませんでした</Text>
@@ -51,6 +61,8 @@ export const SubmitMapScreen = ({ navigation }: Props) => {
 
 const styles = StyleSheet.create({
     mapview: {
+        width: '100%',
+        height: '100%',
         flex: 1,
     },
     selectedBtn: {
