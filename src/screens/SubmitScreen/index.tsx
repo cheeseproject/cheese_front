@@ -17,7 +17,7 @@ export const SubmitScreen = ({ navigation }: Props) => {
         useSubmitScreen();
 
     const handleNavMap = () => {
-        navigation.navigate('Home');
+        navigation.navigate('SubmitMap');
     };
 
     return (
