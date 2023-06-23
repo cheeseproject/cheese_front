@@ -1,10 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {PanResponder,StyleSheet, } from 'react-native';
 import { Animated, Dimensions, SafeAreaView, View,Image,TouchableOpacity } from 'react-native';
 import { SnapPost } from '../../entities/SnapPost';
 import { SwipeCard } from './SwipeCard';
 import { Entypo } from "@expo/vector-icons";
 import { useHomeScreen } from './useHomeScreen';
+import { useSwipeSubmits } from '../../state/SwipeSubmits';
 
 const snapPosts:SnapPost[] = [
     {
@@ -87,7 +88,22 @@ const snapPosts:SnapPost[] = [
 export const HomeScreen = () => {
     // 今の画像のインデックスを管理する
     const [currentIndex, setCurrentIndex] = useState(0);
-    const {addLikedSnapPost} = useHomeScreen();
+    const [likedSnapPosts,setLikedSnapPosts] = useState<SnapPost[]>([]);
+    const {addLikedSnapPost,handleSubmitLikedIds,handleRouteMap} = useHomeScreen();
+    const { handleSetSwipeSubmits } = useSwipeSubmits();
+
+    const handleSetLikedSnapPosts = (snapPost:SnapPost) => {
+        setLikedSnapPosts((prev) => [...prev,snapPost]);
+    }
+
+    // mapに送ります
+    useEffect(() => {
+        if(currentIndex!==0 && currentIndex === snapPosts.length){
+            handleSetSwipeSubmits(likedSnapPosts);
+            handleSubmitLikedIds();
+            handleRouteMap();
+        }
+    },[currentIndex]);
 
     // const { snapPosts } = useHomeScreen();
 
@@ -120,6 +136,7 @@ export const HomeScreen = () => {
     });
 
     // 右にスワイプしたカードの処理を実行
+    handleSetLikedSnapPosts(snapPosts[currentIndex]);
     addLikedSnapPost(snapPosts[currentIndex].snapPostId);
   }
   // カードを左にスワイプする場合
@@ -155,6 +172,7 @@ export const HomeScreen = () => {
                         position.setValue({ x: 0, y: 0 });
                     });
                     addLikedSnapPost(snapPosts[currentIndex].snapPostId);
+                    handleSetLikedSnapPosts(snapPosts[currentIndex]);
                 }
                 // カードを左にスワイプしたとき
                 else if (gestureState.dx < -120) {
