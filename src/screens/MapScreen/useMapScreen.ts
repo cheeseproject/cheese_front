@@ -30,7 +30,7 @@ export const useMapScreen = () => {
     const [title, setTitle] = useState<string>();
 
     // 現在選択中のボタンの値を管理する
-    const [selectedButton, setSelectedButton] = useState<string>('');
+    const [selectedButton, setSelectedButton] = useState<string>('all');
 
     const { mutate: createSnapRoute } = useCreateSnapRoute();
 

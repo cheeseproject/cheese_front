@@ -1,15 +1,27 @@
 import React from 'react';
-import { Image, StyleSheet, View } from 'react-native';
-import { Button, TextInput, Divider } from 'react-native-paper';
+import { ScrollView, StyleSheet,} from 'react-native';
+import { Button, TextInput, Divider, } from 'react-native-paper';
 import { useSubmitScreen } from './useSubmitScreen';
 // import ImageLabeling from '@react-native-ml-kit/image-labeling';
 import { Header } from './Header';
 import { Controller } from 'react-hook-form';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { useLatLng } from '../../state/LngLat';
+import { SelectedImages } from '../../components/submit/SelectedImages';
 
-export const SubmitScreen = () => {
-    const { handlePhotoEditBtn, handleSubmitSnapPost, goBack, control } =
-        useSubmitScreen();
+type Props = {
+    navigation: StackNavigationProp<any>;
+};
+
+export const SubmitScreen = ({ navigation }: Props) => {
+    const { handlePhotoEditBtn, handleSubmitSnapPost, goBack, control,selectedImages } = useSubmitScreen();
+    const { latLng } = useLatLng();
+
+
+    const handleNavMap = () => {
+        navigation.navigate('SubmitMap');
+    };
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -43,12 +55,12 @@ export const SubmitScreen = () => {
                         right={
                             <TextInput.Icon
                                 icon="map-marker"
-                                onPress={() => console.log('aa')}
+                                onPress={handleNavMap}
                             />
                         }
                         onBlur={onBlur}
                         onChangeText={onChange}
-                        value={value}
+                        value={`緯度:${latLng.latitude} 経度:${latLng.longitude}`}
                     />
                 )}
                 name="title"
@@ -61,7 +73,7 @@ export const SubmitScreen = () => {
                 }}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
-                        label={'コメント'}
+                        label={"コメント"}
                         multiline={true}
                         numberOfLines={10}
                         style={styles.textarea}
@@ -72,13 +84,20 @@ export const SubmitScreen = () => {
                 )}
                 name="comment"
             />
+            {selectedImages[0] && (
+                <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={{
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        paddingVertical: 16,
+                    }}
+                >        
+                    <SelectedImages selectedImages={selectedImages}/>
+                </ScrollView>
+            )}
 
-            {/* {image && (
-                <Image
-                    source={{ uri: image }}
-                    style={{ width: 200, height: 200 }}
-                />
-            )} */}
             <Button
                 mode="contained"
                 icon={'camera'}
@@ -96,13 +115,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         height: '100%',
     },
-
     textarea: {
-        height: 200,
+        height:150,
     },
     submitBtn: {
-        marginTop: 64,
-        width: 200,
+        marginTop:30,
+        marginBottom:30,
+        width: 150,
         borderRadius: 500,
         alignSelf: 'center',
     },

@@ -5,6 +5,8 @@ import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { MapScreen } from '../screens/MapScreen';
 import { HomeScreen } from '../screens/HomeScreen';
+import { MyPageScreen } from '../screens/MyPageScreen';
+import { SubmitNavigator } from './ SubmitNavigator';
 import { MyPageNavigator } from './MyPageNavigator';
 import { RouteNavigator } from './RouteNavigator';
 const Tab = createMaterialBottomTabNavigator();
@@ -47,7 +49,7 @@ export const MainTabNavigator = () => {
 
             <Tab.Screen
                 name="dummy"
-                component={MapScreen}
+                component={SubmitNavigator}
                 options={{
                     tabBarLabel: '投稿',
                     tabBarIcon: ({ color }) => (
