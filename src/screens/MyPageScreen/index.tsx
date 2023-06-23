@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { SubmitCard } from '../../components/myPage/SubmitCard';
 import { useMyPageScreen } from './useMaPageScreen';
 import { SnapPost } from '../../entities/SnapPost';
 import { ScreenLoader } from '../../components/common/ScreenLoader';
 import { Appbar, Avatar, Button, Text, ToggleButton } from 'react-native-paper';
 import { useFetchMyUser } from '../../hooks/domain/user/useFetchUser';
+import { SubmitCard } from '../../components/myPage/SubmitCard';
 
 export const MyPageScreen = () => {
-    const { mySnapPosts, likedSnapPosts } = useMyPageScreen();
-
-    const { data: myUser } = useFetchMyUser();
-    // 現在選択中のボタンの値を管理する
-    const [selectedButton, setSelectedButton] = useState<string>('post');
-    const isActive = (value: string) => value === selectedButton;
+    const {
+        mySnapPosts,
+        likedSnapPosts,
+        myUser,
+        handlePressSnapPost,
+        handleChangeSelectedButton,
+        selectedButton,
+        isActive,
+    } = useMyPageScreen();
 
     const renderSubmitCard = (snapPost: SnapPost) => (
         <View style={{ flex: 0.5 }}>
@@ -23,6 +26,7 @@ export const MyPageScreen = () => {
                 comment={snapPost.comment}
                 tags={snapPost.tags}
                 imagePath={snapPost.postImages[0].imagePath}
+                onPress={() => handlePressSnapPost(snapPost.snapPostId)}
             />
         </View>
     );
@@ -52,7 +56,7 @@ export const MyPageScreen = () => {
                 <View>
                     <ToggleButton.Row
                         value={selectedButton}
-                        onValueChange={(value) => setSelectedButton(value)}
+                        onValueChange={handleChangeSelectedButton}
                         style={styles.toggleButtons}
                     >
                         <ToggleButton

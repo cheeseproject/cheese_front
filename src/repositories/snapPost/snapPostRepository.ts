@@ -11,6 +11,7 @@ import {
     UpdateSnapPostRequest,
 } from './types';
 import { functions } from '../../plugins/firebase';
+import { removeNulls } from '../../libs/nullToUndefined';
 
 export const snapPostRepository = {
     create: async (params: CreateSnapPostRequest) => {
@@ -18,6 +19,7 @@ export const snapPostRepository = {
     },
 
     update: async (params: UpdateSnapPostRequest) => {
+        console.log(params);
         await httpsCallable(functions, 'updateSnapPost')(params);
     },
 
@@ -31,17 +33,17 @@ export const snapPostRepository = {
 
     fetch: async (params: FetchSnapPostRequest): Promise<SnapPostResponse> => {
         const res = await httpsCallable(functions, 'fetchSnapPost')(params);
-        return SnapPostResponseScheme.parse(res.data);
+        return SnapPostResponseScheme.parse(removeNulls(res.data));
     },
 
     fetchMy: async (): Promise<SnapPostResponse[]> => {
         const res = await httpsCallable(functions, 'fetchMySnapPosts')();
-        return SnapPostResponseListScheme.parse(res.data);
+        return SnapPostResponseListScheme.parse(removeNulls(res.data));
     },
 
     fetchLiked: async (): Promise<SnapPostResponse[]> => {
         const res = await httpsCallable(functions, 'fetchLikedSnapPosts')();
-        return SnapPostResponseListScheme.parse(res.data);
+        return SnapPostResponseListScheme.parse(removeNulls(res.data));
     },
 
     fetchByGeographyRange: async (
@@ -51,6 +53,6 @@ export const snapPostRepository = {
             functions,
             'fetchSnapPostsByGeographyRange'
         )(params);
-        return SnapPostResponseListScheme.parse(res.data);
+        return SnapPostResponseListScheme.parse(removeNulls(res.data));
     },
 };

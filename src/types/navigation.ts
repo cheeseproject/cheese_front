@@ -8,4 +8,8 @@ export type RootStackParamList = {
     SignUp: undefined;
     NewProfile: undefined;
     Main: undefined;
+    MyPageProfile: undefined;
+    MyPageDetail: { snapPostId: string };
+    RouteList: undefined;
+    RouteDetail: { routeId: string };
 };
