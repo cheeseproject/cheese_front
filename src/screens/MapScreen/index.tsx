@@ -7,34 +7,6 @@ import { useMapScreen } from './useMapScreen';
 import { SnapPost } from '../../entities/SnapPost';
 import { CustomMarker } from './CustomMarker';
 
-
-const dummySnapPosts:any[] = [
-    {
-        snapPostId: '1',
-        userId: '1',
-        title: 'test',
-        longitude: 139.767125,
-        latitude: 35.681236,
-        snapPostImage: 'https://picsum.photos/200/300',
-    },
-    {
-        snapPostId: '2',
-        userId: '2',
-        title: 'test',
-        longitude: 139.797125,
-        latitude: 36.051236,
-        snapPostImage: 'https://picsum.photos/200/300',
-    },
-    {
-        snapPostId: '3',
-        userId: '3',
-        title: 'test',
-        longitude: 139.717125,
-        latitude: 35.680236,
-        snapPostImage: 'https://picsum.photos/200/300',
-    },];
-
-
 export const MapScreen = () => {
     const {
         location,
@@ -55,7 +27,9 @@ export const MapScreen = () => {
     // マーカークリック時
     const handleClickMarker = (latLng: LatLng) => {
         const contained = selectedPoints.findIndex(
-            (p) => p.latitude === latLng.latitude && p.longitude === latLng.longitude,
+            (p) =>
+                p.latitude === latLng.latitude &&
+                p.longitude === latLng.longitude
         );
         if (contained >= 0) {
             const newPoints = [...selectedPoints];
@@ -65,20 +39,18 @@ export const MapScreen = () => {
             // 選択されていない場合は追加する
             setSelectedPoints([...selectedPoints, latLng]);
         }
-        console.log(selectedPoints);
+        console.log(likedSnapPosts);
     };
 
-
-    let showMarker=null;
-    if( selectedButton=='all'){
-        showMarker=snapPosts;
-    }else if(selectedButton=='recommend'){
-        showMarker=snapPosts;
+    let showMarker: SnapPost[] = [];
+    if (selectedButton == 'all') {
+        showMarker = snapPosts;
+    } else if (selectedButton == 'recommend') {
+        showMarker = likedSnapPosts;
     }
 
-    showMarker=dummySnapPosts;
+    console.log(showMarker);
 
-    
     return (
         <SafeAreaView style={{ flex: 1 }}>
             {
@@ -95,10 +67,19 @@ export const MapScreen = () => {
                         showsUserLocation={true}
                         showsCompass={true}
                     >
-                        {showMarker&&showMarker.map((snapPost) => (
-                            <CustomMarker snapPost={snapPost} key={snapPost.snapPostId} onClick={()=>handleClickMarker({latitude:0,longitude:0})} />
-                        ))}
-
+                        {showMarker &&
+                            showMarker.map((snapPost) => (
+                                <CustomMarker
+                                    snapPost={snapPost}
+                                    key={snapPost.snapPostId}
+                                    onClick={() =>
+                                        handleClickMarker({
+                                            latitude: 0,
+                                            longitude: 0,
+                                        })
+                                    }
+                                />
+                            ))}
                     </MapView>
                 ) : (
                     <Text>現在位置を取得できませんでした</Text>
@@ -108,8 +89,24 @@ export const MapScreen = () => {
                 value={selectedButton}
                 onValueChange={handleChangeSelectedButton}
                 buttons={[
-                    { label: 'すべて', value: 'all',style: {backgroundColor: selectedButton === 'all' ? '#333' : '#fff'}  },
-                    { label: 'おすすめ', value: 'recommend',style: {backgroundColor: selectedButton === 'recommend' ? '#333' : '#fff'} },
+                    {
+                        label: 'すべて',
+                        value: 'all',
+                        style: {
+                            backgroundColor:
+                                selectedButton === 'all' ? '#333' : '#fff',
+                        },
+                    },
+                    {
+                        label: 'おすすめ',
+                        value: 'recommend',
+                        style: {
+                            backgroundColor:
+                                selectedButton === 'recommend'
+                                    ? '#333'
+                                    : '#fff',
+                        },
+                    },
                 ]}
                 style={styles.selectedBtn}
             />
