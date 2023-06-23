@@ -15,6 +15,7 @@ import { removeNulls } from '../../libs/nullToUndefined';
 
 export const snapPostRepository = {
     create: async (params: CreateSnapPostRequest) => {
+        console.log(params);
         await httpsCallable(functions, 'createSnapPost')(params);
     },
 

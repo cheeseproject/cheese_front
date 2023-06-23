@@ -6,7 +6,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import { MapScreen } from '../screens/MapScreen';
 import { HomeScreen } from '../screens/HomeScreen';
 import { MyPageScreen } from '../screens/MyPageScreen';
-import { SubmitNavigator } from './ SubmitNavigator';
+import { SubmitNavigator } from './SubmitNavigator';
 import { MyPageNavigator } from './MyPageNavigator';
 import { RouteNavigator } from './RouteNavigator';
 const Tab = createMaterialBottomTabNavigator();

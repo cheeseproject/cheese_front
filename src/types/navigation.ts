@@ -1,7 +1,10 @@
 export type RootStackParamList = {
     Home: undefined;
     Map: undefined;
-    Submit: undefined;
+    Submit: {
+        latitude: number;
+        longitude: number;
+    };
     Route: undefined;
     MyPage: undefined;
     SignIn: undefined;

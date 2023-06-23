@@ -3,7 +3,7 @@ import React from 'react';
 import { MainTabNavigator } from './MainTabNavigator';
 import { SubmitScreen } from '../screens/SubmitScreen';
 import { NewProfileScreen } from '../screens/NewProfileScreen';
-import { SubmitNavigator } from './ SubmitNavigator';
+import { SubmitNavigator } from './SubmitNavigator';
 
 const rootStack = createStackNavigator();
 

@@ -10,7 +10,7 @@ import { RootStackParamList } from '../../types/navigation';
 export const useHomeScreen = () => {
     const { location } = useLocationInformation();
     const [likesSnapPostIds, setLikesSnapPostIds] = useState<string[]>([]);
-     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
     const { data: snapPosts = [], isLoading: isSnapPostsLoading } =
         useFetchSnapPostsByGeographyRange(location);

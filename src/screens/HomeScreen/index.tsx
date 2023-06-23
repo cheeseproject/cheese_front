@@ -1,13 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {PanResponder,StyleSheet, } from 'react-native';
-import { Animated, Dimensions, SafeAreaView, View,Image,TouchableOpacity } from 'react-native';
+import { PanResponder, StyleSheet } from 'react-native';
+import {
+    Animated,
+    Dimensions,
+    SafeAreaView,
+    View,
+    Image,
+    TouchableOpacity,
+} from 'react-native';
 import { SnapPost } from '../../entities/SnapPost';
 import { SwipeCard } from './SwipeCard';
-import { Entypo } from "@expo/vector-icons";
+import { Entypo } from '@expo/vector-icons';
 import { useHomeScreen } from './useHomeScreen';
 import { useSwipeSubmits } from '../../state/SwipeSubmits';
 
-const snapPosts:SnapPost[] = [
+const snapPosts: SnapPost[] = [
     {
         snapPostId: '1',
         userId: '1',
@@ -28,8 +35,8 @@ const snapPosts:SnapPost[] = [
             //     imagePath: 'https://picsum.photos/200/400',
             // },
         ],
-        tags: ["test1","test2"],
-        comment: "test",
+        tags: ['test1', 'test2'],
+        comment: 'test',
         likedCount: 1,
         postedUser: {
             userId: '1',
@@ -50,8 +57,8 @@ const snapPosts:SnapPost[] = [
                 imagePath: 'https://picsum.photos/200/300',
             },
         ],
-        tags: ["test1","test2"],
-        comment: "test",
+        tags: ['test1', 'test2'],
+        comment: 'test',
         likedCount: 1,
         postedUser: {
             userId: '1',
@@ -72,8 +79,8 @@ const snapPosts:SnapPost[] = [
                 imagePath: 'https://picsum.photos/200/300',
             },
         ],
-        tags: ["test1","test2"],
-        comment: "test",
+        tags: ['test1', 'test2'],
+        comment: 'test',
         likedCount: 1,
         postedUser: {
             userId: '1',
@@ -88,22 +95,23 @@ const snapPosts:SnapPost[] = [
 export const HomeScreen = () => {
     // 今の画像のインデックスを管理する
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [likedSnapPosts,setLikedSnapPosts] = useState<SnapPost[]>([]);
-    const {addLikedSnapPost,handleSubmitLikedIds,handleRouteMap} = useHomeScreen();
+    const [likedSnapPosts, setLikedSnapPosts] = useState<SnapPost[]>([]);
+    const { addLikedSnapPost, handleSubmitLikedIds, handleRouteMap } =
+        useHomeScreen();
     const { handleSetSwipeSubmits } = useSwipeSubmits();
 
-    const handleSetLikedSnapPosts = (snapPost:SnapPost) => {
-        setLikedSnapPosts((prev) => [...prev,snapPost]);
-    }
+    const handleSetLikedSnapPosts = (snapPost: SnapPost) => {
+        setLikedSnapPosts((prev) => [...prev, snapPost]);
+    };
 
     // mapに送ります
     useEffect(() => {
-        if(currentIndex!==0 && currentIndex === snapPosts.length){
+        if (currentIndex !== 0 && currentIndex === snapPosts.length) {
             handleSetSwipeSubmits(likedSnapPosts);
             handleSubmitLikedIds();
             handleRouteMap();
         }
-    },[currentIndex]);
+    }, [currentIndex]);
 
     // const { snapPosts } = useHomeScreen();
 
@@ -119,37 +127,35 @@ export const HomeScreen = () => {
         swipeCard('left');
     };
 
-
-
     const SCREEN_HEIGHT = Dimensions.get('window').height;
     const SCREEN_WIDTH = Dimensions.get('window').width;
 
-    const swipeCard = (direction:'right'|'left') => {
-  // カードを右にスワイプする場合
-  if (direction === 'right') {
-    Animated.spring(position, {
-      toValue: { x: SCREEN_WIDTH + 100, y: 0 },
-      useNativeDriver: false,
-    }).start(() => {
-      setCurrentIndex((prev) => prev + 1);
-      position.setValue({ x: 0, y: 0 });
-    });
+    const swipeCard = (direction: 'right' | 'left') => {
+        // カードを右にスワイプする場合
+        if (direction === 'right') {
+            Animated.spring(position, {
+                toValue: { x: SCREEN_WIDTH + 100, y: 0 },
+                useNativeDriver: false,
+            }).start(() => {
+                setCurrentIndex((prev) => prev + 1);
+                position.setValue({ x: 0, y: 0 });
+            });
 
-    // 右にスワイプしたカードの処理を実行
-    handleSetLikedSnapPosts(snapPosts[currentIndex]);
-    addLikedSnapPost(snapPosts[currentIndex].snapPostId);
-  }
-  // カードを左にスワイプする場合
-  else if (direction === 'left') {
-    Animated.spring(position, {
-      toValue: { x: -SCREEN_WIDTH - 100, y: 0 },
-      useNativeDriver: false,
-    }).start(() => {
-      setCurrentIndex((prev) => prev + 1);
-      position.setValue({ x: 0, y: 0 });
-    });
-  }
-};
+            // 右にスワイプしたカードの処理を実行
+            handleSetLikedSnapPosts(snapPosts[currentIndex]);
+            addLikedSnapPost(snapPosts[currentIndex].snapPostId);
+        }
+        // カードを左にスワイプする場合
+        else if (direction === 'left') {
+            Animated.spring(position, {
+                toValue: { x: -SCREEN_WIDTH - 100, y: 0 },
+                useNativeDriver: false,
+            }).start(() => {
+                setCurrentIndex((prev) => prev + 1);
+                position.setValue({ x: 0, y: 0 });
+            });
+        }
+    };
 
     // 画像のポシションを管理する
     const position = useRef(new Animated.ValueXY()).current;
@@ -217,9 +223,9 @@ export const HomeScreen = () => {
         extrapolate: 'clamp',
     });
 
-    
-        const RenderPictures = () => {
-        return snapPosts.map((snapPost, i) => {
+    const RenderPictures = () => {
+        return snapPosts
+            .map((snapPost, i) => {
                 if (i < currentIndex) {
                     return null;
                 }
@@ -241,9 +247,7 @@ export const HomeScreen = () => {
                                 },
                             ]}
                         >
-                            <SwipeCard
-                                snapPost={snapPost}
-                            />
+                            <SwipeCard snapPost={snapPost} />
                         </Animated.View>
                     );
                 } else {
@@ -263,9 +267,7 @@ export const HomeScreen = () => {
                                 },
                             ]}
                         >
-                            <SwipeCard
-                                snapPost={snapPost}
-                            />
+                            <SwipeCard snapPost={snapPost} />
                         </Animated.View>
                     );
                 }
@@ -275,20 +277,34 @@ export const HomeScreen = () => {
 
     return (
         <SafeAreaView>
-            <View >
+            <View>
                 {RenderPictures()}
-                <TouchableOpacity style={styles.dislike} onPress={handleSwipeLeft}>
-                    <Entypo name="cross" size={30} color="#666666" style={styles.dislikeIcon} />
+                <TouchableOpacity
+                    style={styles.dislike}
+                    onPress={handleSwipeLeft}
+                >
+                    <Entypo
+                        name="cross"
+                        size={30}
+                        color="#666666"
+                        style={styles.dislikeIcon}
+                    />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.like} onPress={handleSwipeRight}>
-                    <Image source={require("../../assets/home/like.png")}  style={styles.likeIcon} />
+                <TouchableOpacity
+                    style={styles.like}
+                    onPress={handleSwipeRight}
+                >
+                    <Image
+                        source={require('../../assets/home/like.png')}
+                        style={styles.likeIcon}
+                    />
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
     );
 };
 const styles = StyleSheet.create({
-    dislike:{
+    dislike: {
         position: 'absolute',
         top: 500,
         left: 100,
@@ -305,7 +321,7 @@ const styles = StyleSheet.create({
         shadowRadius: 1.5,
         elevation: 2, // Android向けの影の設定
     },
-    like:{
+    like: {
         position: 'absolute',
         top: 500,
         right: 100,
@@ -322,14 +338,13 @@ const styles = StyleSheet.create({
         shadowRadius: 1.5,
         elevation: 2, // Android向けの影の設定
     },
-    likeIcon:{
+    likeIcon: {
         width: 25,
         height: 25,
         objectFit: 'contain',
     },
-    dislikeIcon:{
+    dislikeIcon: {
         width: 30,
         height: 30,
-    }
-})
-
+    },
+});

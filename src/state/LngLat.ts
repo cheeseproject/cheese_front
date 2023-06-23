@@ -2,9 +2,9 @@ import { atom, useRecoilState } from 'recoil';
 import { User } from '../entities/User';
 import { LatLng } from 'react-native-maps';
 
-const LatLngAtom = atom<LatLng >({
+const LatLngAtom = atom<LatLng | undefined>({
     key: 'userProfile', // unique ID (with respect to other atoms/selectors)
-    default: {latitude:0,longitude:0}, // default value (aka initial value)
+    default: { latitude: 0, longitude: 0 }, // default value (aka initial value)
 });
 
 export const useLatLng = () => {

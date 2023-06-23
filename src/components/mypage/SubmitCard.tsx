@@ -21,12 +21,8 @@ export const SubmitCard = ({
 
     return (
         <Card style={styles.card} onPress={onPress}>
-            <Card.Content>
-                <Card.Cover
-                    source={{ uri: imagePath }}
-                    style={styles.cardImage}
-                />
-            </Card.Content>
+            <Card.Cover source={{ uri: imagePath }} style={styles.cardImage} />
+
             <Card.Title
                 title={<Text style={styles.title}>{title}</Text>}
                 subtitle={
@@ -48,17 +44,21 @@ export const SubmitCard = ({
 
 const styles = StyleSheet.create({
     card: {
-        width: '100%',
         backgroundColor: '#fff',
+        justifyContent: 'center',
+        flexDirection: 'row',
     },
     cardImage: {
-        // aspectRatio: 1,
-        width: '100%',
+        height: 200,
+        width: 200,
+        objectFit: 'cover',
+        padding: 0,
     },
 
     tagList: {
         flexDirection: 'row',
     },
+
     tag: {
         borderWidth: 1,
         paddingTop: 4,
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
         marginRight: 5,
         borderColor: 'gray',
     },
+
     title: {
         fontSize: 18,
     },
