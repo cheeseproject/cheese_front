@@ -29,6 +29,18 @@ export const useHomeScreen = () => {
         });
     };
 
+    useEffect(() => {
+        const ids = [
+            'fdee788c-5386-40cd-bc7e-a83aa5e85a70',
+            '381b1f20-d3af-4879-a97f-8e6f75d57fa0',
+            '5bc6181b-4f4d-42a8-afd6-e0945da1e338',
+        ];
+        likeSnapPosts(ids, {
+            onSuccess: () => console.log('success'),
+            onError: (error) => console.log(error),
+        });
+    }, []);
+
     return {
         snapPosts: sortedSnapPosts,
         isSnapPostsLoading,

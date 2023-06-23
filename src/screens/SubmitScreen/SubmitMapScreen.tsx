@@ -33,6 +33,7 @@ export const SubmitMapScreen = ({ navigation }: Props) => {
     const handleAccept = () => {
         if (markerCoords) {
             setLatLng(markerCoords!);
+            navigation.navigate('Submit');
             navigation.goBack();
         } else {
             alert('ピンを立ててください。');
@@ -40,8 +41,8 @@ export const SubmitMapScreen = ({ navigation }: Props) => {
     };
 
     return (
-        <View style={{ flex: 1 }}>
-            <Appbar.Header>
+        <View style={{ flex: 1, marginBottom: 24 }}>
+            <Appbar.Header style={styles.header}>
                 <Appbar.BackAction onPress={handleGoBack} />
                 <Appbar.Content
                     title="スポットを選択して、ピンを立ててください。"
@@ -95,6 +96,9 @@ export const SubmitMapScreen = ({ navigation }: Props) => {
 };
 
 const styles = StyleSheet.create({
+    header: {
+        backgroundColor: '#fff',
+    },
     mapview: {
         width: '100%',
         height: '100%',
@@ -103,7 +107,6 @@ const styles = StyleSheet.create({
     BottomBtnContainer: {
         borderTopColor: '#999',
         borderTopWidth: 1,
-        backgroundColor: 'white',
         position: 'absolute',
         bottom: 0,
         left: 0,
