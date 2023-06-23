@@ -1,6 +1,6 @@
 import React from 'react';
-import { ScrollView, StyleSheet,} from 'react-native';
-import { Button, TextInput, Divider, } from 'react-native-paper';
+import { ScrollView, StyleSheet } from 'react-native';
+import { Button, TextInput, Divider } from 'react-native-paper';
 import { useSubmitScreen } from './useSubmitScreen';
 // import ImageLabeling from '@react-native-ml-kit/image-labeling';
 import { Header } from './Header';
@@ -15,9 +15,14 @@ type Props = {
 };
 
 export const SubmitScreen = ({ navigation }: Props) => {
-    const { handlePhotoEditBtn, handleSubmitSnapPost, goBack, control,selectedImages } = useSubmitScreen();
+    const {
+        handlePhotoEditBtn,
+        handleSubmitSnapPost,
+        goBack,
+        control,
+        selectedImages,
+    } = useSubmitScreen();
     const { latLng } = useLatLng();
-
 
     const handleNavMap = () => {
         navigation.navigate('SubmitMap');
@@ -73,7 +78,7 @@ export const SubmitScreen = ({ navigation }: Props) => {
                 }}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
-                        label={"コメント"}
+                        label={'コメント'}
                         multiline={true}
                         numberOfLines={10}
                         style={styles.textarea}
@@ -93,8 +98,8 @@ export const SubmitScreen = ({ navigation }: Props) => {
                         justifyContent: 'center',
                         paddingVertical: 16,
                     }}
-                >        
-                    <SelectedImages selectedImages={selectedImages}/>
+                >
+                    <SelectedImages selectedImages={selectedImages} />
                 </ScrollView>
             )}
 
@@ -116,11 +121,11 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     textarea: {
-        height:150,
+        height: 150,
     },
     submitBtn: {
-        marginTop:30,
-        marginBottom:30,
+        marginTop: 30,
+        marginBottom: 30,
         width: 150,
         borderRadius: 500,
         alignSelf: 'center',
