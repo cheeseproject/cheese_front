@@ -9,6 +9,7 @@ import { MyPageScreen } from '../screens/MyPageScreen';
 import { SubmitNavigator } from './SubmitNavigator';
 import { MyPageNavigator } from './MyPageNavigator';
 import { RouteNavigator } from './RouteNavigator';
+import { Entypo } from '@expo/vector-icons';
 const Tab = createMaterialBottomTabNavigator();
 
 export const MainTabNavigator = () => {
@@ -38,11 +39,7 @@ export const MainTabNavigator = () => {
                 options={{
                     tabBarLabel: 'マップ',
                     tabBarIcon: ({ color }) => (
-                        <MaterialCommunityIcons
-                            name="bell"
-                            color={color}
-                            size={26}
-                        />
+                        <Entypo name="map" color={color} size={26} />
                     ),
                 }}
             />
