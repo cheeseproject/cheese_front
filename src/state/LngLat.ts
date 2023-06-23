@@ -7,7 +7,7 @@ const LatLngAtom = atom<LatLng >({
     default: {latitude:0,longitude:0}, // default value (aka initial value)
 });
 
-export const useUserProfile = () => {
+export const useLatLng = () => {
     const [latLng, setLatLng] = useRecoilState(LatLngAtom);
     return {
         latLng,

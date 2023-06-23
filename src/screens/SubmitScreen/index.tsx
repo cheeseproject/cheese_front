@@ -7,6 +7,8 @@ import { Header } from './Header';
 import { Controller } from 'react-hook-form';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useRecoilValue } from 'recoil';
+import { useLatLng } from '../../state/LngLat';
 
 type Props = {
     navigation: StackNavigationProp<any>;
@@ -15,6 +17,8 @@ type Props = {
 export const SubmitScreen = ({ navigation }: Props) => {
     const { handlePhotoEditBtn, handleSubmitSnapPost, goBack, control } =
         useSubmitScreen();
+
+    const { latLng } = useLatLng();
 
     const handleNavMap = () => {
         navigation.navigate('SubmitMap');
@@ -57,7 +61,7 @@ export const SubmitScreen = ({ navigation }: Props) => {
                         }
                         onBlur={onBlur}
                         onChangeText={onChange}
-                        value={value}
+                        value={`緯度:${latLng.latitude} 経度:${latLng.longitude}`}
                     />
                 )}
                 name="title"

@@ -5,6 +5,7 @@ import { Appbar, Button, Text } from 'react-native-paper';
 import { StackNavigationProp } from '@react-navigation/stack';
 import MapView, { LatLng, MapPressEvent, Marker } from 'react-native-maps';
 import { useLocationInformation } from '../../hooks/useLocationInformation';
+import { useLatLng } from '../../state/LngLat';
 
 type Props = {
     navigation: StackNavigationProp<any>;
@@ -14,6 +15,7 @@ export const SubmitMapScreen = ({ navigation }: Props) => {
     const { location } = useLocationInformation();
 
     const [markerCoords, setMarkerCoords] = useState<LatLng | null>(null);
+    const { setLatLng } = useLatLng();
 
     const handleMapPress = (event: MapPressEvent) => {
         const { coordinate } = event.nativeEvent;
@@ -29,7 +31,12 @@ export const SubmitMapScreen = ({ navigation }: Props) => {
     };
 
     const handleAccept = () => {
-        navigation.goBack();
+        if (markerCoords) {
+            setLatLng(markerCoords!);
+            navigation.goBack();
+        } else {
+            alert('ピンを立ててください。');
+        }
     };
 
     return (
@@ -74,7 +81,11 @@ export const SubmitMapScreen = ({ navigation }: Props) => {
                 </View>
 
                 <View style={styles.btnBtn}>
-                    <Button mode="contained" style={styles.Btn}>
+                    <Button
+                        mode="contained"
+                        style={styles.Btn}
+                        onPress={handleAccept}
+                    >
                         完了
                     </Button>
                 </View>
