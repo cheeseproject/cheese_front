@@ -17,6 +17,15 @@ export const MapScreen = () => {
         handleChangeSelectedButton,
     } = useMapScreen();
 
+    let showMarker=null;
+    if( selectedButton=='all'){
+        showMarker=snapPosts;
+    }else if(selectedButton=='recommend'){
+        showMarker=snapPosts;
+    }
+
+    console.log(snapPosts);
+    
     return (
         <SafeAreaView style={{ flex: 1 }}>
             {
@@ -33,19 +42,30 @@ export const MapScreen = () => {
                         showsUserLocation={true}
                         showsCompass={true}
                     >
-                        <Marker coordinate={location} >
-                            <Image
-                                source={require('../../assets/mapicon.png')}
-                            />
+                        {showMarker&&showMarker.map((snapPost) => (
+                            <Marker
+                                key={snapPost.snapPostId}
+                                coordinate={{
+                                    latitude:location.latitude,   
+                                    longitude: location.longitude,
+                                }}
+                                onPress={() => {
+                                    // addSnapPostIdToRoute(snapPost.id);
+                                    // handleSubmitSnapRoute();
+                                }}
+                            >
+                                {/* <Image
+                                    source={require('../../assets/mapicon.png')}
+                                /> */}
+                            </Marker>
+                        ))}
 
-                        </Marker>
                     </MapView>
                 ) : (
                     <Text>現在位置を取得できませんでした</Text>
                 )
             }
             <SegmentedButtons
-
                 value={selectedButton}
                 onValueChange={handleChangeSelectedButton}
                 buttons={[
