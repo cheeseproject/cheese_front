@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Header } from './Header';
-import { Appbar, Text } from 'react-native-paper';
+import { Appbar, Button, Text } from 'react-native-paper';
 import { StackNavigationProp } from '@react-navigation/stack';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, { LatLng, MapPressEvent, Marker } from 'react-native-maps';
 import { useLocationInformation } from '../../hooks/useLocationInformation';
 
 type Props = {
@@ -13,9 +13,9 @@ type Props = {
 export const SubmitMapScreen = ({ navigation }: Props) => {
     const { location } = useLocationInformation();
 
-    const [markerCoords, setMarkerCoords] = useState(null);
+    const [markerCoords, setMarkerCoords] = useState<LatLng | null>(null);
 
-    const handleMapPress = (event) => {
+    const handleMapPress = (event: MapPressEvent) => {
         const { coordinate } = event.nativeEvent;
         setMarkerCoords(coordinate);
     };
@@ -55,6 +55,10 @@ export const SubmitMapScreen = ({ navigation }: Props) => {
                     <Text>現在位置を取得できませんでした</Text>
                 )
             }
+            <View style={styles.BottomBtn}>
+                <Button mode="contained">キャンセル</Button>
+                <Button>完了</Button>
+            </View>
         </SafeAreaView>
     );
 };
@@ -65,12 +69,17 @@ const styles = StyleSheet.create({
         height: '100%',
         flex: 1,
     },
-    selectedBtn: {
+    BottomBtn: {
+        borderTopColor: '#999',
+        borderTopWidth: 1,
+        backgroundColor: 'white',
         position: 'absolute',
-        top: 80,
+        bottom: 0,
         left: 0,
         zIndex: 100,
-        width: 240,
+        width: '100%',
+        height: 60,
         padding: 4,
+        flexDirection: 'row',
     },
 });
