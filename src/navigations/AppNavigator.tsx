@@ -3,14 +3,14 @@ import React from 'react';
 import { MainStackNavigator } from './MainStackNavigator';
 import { AuthNavigator } from './AuthNavigator';
 import { useAuthUser } from '../state/authUser';
-import { useFetchMyUser } from '../hooks/domain/user/useFetchUser';
+import { useFetchUser } from '../hooks/domain/user/useFetchUser';
 import { ScreenLoader } from '../components/common/ScreenLoader';
 
 export const AppNavigator = () => {
     const { authUser } = useAuthUser();
     // NOTE: 認証された時にプロフィールがフェッチされる
-    const { data: userProfile, isLoading } = useFetchMyUser({
-        enabled: !!authUser,
+    const { data: userProfile, isLoading } = useFetchUser(authUser?.uid, {
+        enabled: !!authUser?.uid,
     });
 
     const Navigation = () => {

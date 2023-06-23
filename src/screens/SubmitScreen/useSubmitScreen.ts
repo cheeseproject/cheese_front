@@ -52,7 +52,7 @@ export const useSubmitScreen = () => {
 
     const handleSubmitSnapPost = handleSubmit(async (data) => {
         createSnapPost(data, {
-            onSuccess: goBack,
+            onSuccess: () => console.log('success'),
             onError: (error) => console.log(error),
         });
     });

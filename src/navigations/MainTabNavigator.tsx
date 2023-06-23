@@ -5,6 +5,8 @@ import { MapScreen } from '../screens/MapScreen';
 import { HomeScreen } from '../screens/HomeScreen';
 import { MyPageScreen } from '../screens/MyPageScreen';
 import { SubmitNavigator } from './ SubmitNavigator';
+import { MyPageNavigator } from './MyPageNavigator';
+import { RouteNavigator } from './RouteNavigator';
 const Tab = createMaterialBottomTabNavigator();
 
 export const MainTabNavigator = () => {
@@ -65,7 +67,7 @@ export const MainTabNavigator = () => {
             />
             <Tab.Screen
                 name="Route"
-                component={MapScreen}
+                component={RouteNavigator}
                 options={{
                     tabBarLabel: 'ルート一覧',
                     tabBarIcon: ({ color }) => (
@@ -79,7 +81,7 @@ export const MainTabNavigator = () => {
             />
             <Tab.Screen
                 name="MyPage"
-                component={MyPageScreen}
+                component={MyPageNavigator}
                 options={{
                     tabBarLabel: 'マイページ',
                     tabBarIcon: ({ color }) => (

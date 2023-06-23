@@ -16,6 +16,7 @@ export const useSignUpScreen = () => {
 
     // TODO: フォームのエラーハンドリングを実装
     const handleCreateAccount = () => {
+        console.log('hello');
         if (!email || !password || !passwordForConfirmation) return;
         if (password !== passwordForConfirmation) return;
         signUp(
