@@ -14,90 +14,16 @@ import { Entypo } from '@expo/vector-icons';
 import { useHomeScreen } from './useHomeScreen';
 import { useSwipeSubmits } from '../../state/SwipeSubmits';
 
-const snapPosts: SnapPost[] = [
-    {
-        snapPostId: '1',
-        userId: '1',
-        title: 'test',
-        longitude: 139.767125,
-        latitude: 35.681236,
-        postImages: [
-            {
-                imagePath: 'https://picsum.photos/200/300',
-            },
-            {
-                imagePath: 'https://picsum.photos/200/400',
-            },
-            // {
-            //     imagePath: 'https://picsum.photos/200/400',
-            // },
-            // {
-            //     imagePath: 'https://picsum.photos/200/400',
-            // },
-        ],
-        tags: ['test1', 'test2'],
-        comment: 'test',
-        likedCount: 1,
-        postedUser: {
-            userId: '1',
-            name: 'test',
-            iconPath: 'https://picsum.photos/200/300',
-        },
-        postedAt: new Date(),
-        updatedAt: new Date(),
-    },
-    {
-        snapPostId: '1',
-        userId: '1',
-        title: 'test',
-        longitude: 139.767125,
-        latitude: 35.681236,
-        postImages: [
-            {
-                imagePath: 'https://picsum.photos/200/300',
-            },
-        ],
-        tags: ['test1', 'test2'],
-        comment: 'test',
-        likedCount: 1,
-        postedUser: {
-            userId: '1',
-            name: 'test',
-            iconPath: 'https://picsum.photos/200/300',
-        },
-        postedAt: new Date(),
-        updatedAt: new Date(),
-    },
-    {
-        snapPostId: '1',
-        userId: '1',
-        title: 'test',
-        longitude: 139.767125,
-        latitude: 35.681236,
-        postImages: [
-            {
-                imagePath: 'https://picsum.photos/200/300',
-            },
-        ],
-        tags: ['test1', 'test2'],
-        comment: 'test',
-        likedCount: 1,
-        postedUser: {
-            userId: '1',
-            name: 'test',
-            iconPath: 'https://picsum.photos/200/300',
-        },
-        postedAt: new Date(),
-        updatedAt: new Date(),
-    },
-];
-
 export const HomeScreen = () => {
     // 今の画像のインデックスを管理する
     const [currentIndex, setCurrentIndex] = useState(0);
     const [likedSnapPosts, setLikedSnapPosts] = useState<SnapPost[]>([]);
-    const { addLikedSnapPost, handleSubmitLikedIds, handleRouteMap } =
-        useHomeScreen();
+    const {
+        addLikedSnapPost,
+        handleSubmitLikedIds,
+        handleRouteMap,
+        snapPosts,
+    } = useHomeScreen();
     const { handleSetSwipeSubmits } = useSwipeSubmits();
 
     const handleSetLikedSnapPosts = (snapPost: SnapPost) => {
@@ -177,6 +103,8 @@ export const HomeScreen = () => {
                         setCurrentIndex((prev) => prev + 1);
                         position.setValue({ x: 0, y: 0 });
                     });
+                    console.log(snapPosts);
+
                     addLikedSnapPost(snapPosts[currentIndex].snapPostId);
                     handleSetLikedSnapPosts(snapPosts[currentIndex]);
                 }
