@@ -2,6 +2,9 @@
 
 [![React Native](https://img.shields.io/badge/react%20native-v0.64.0-blue.svg)](https://facebook.github.io/react-native/)
 
+## ハッカソン発表スライド
+https://www.canva.com/design/DAFmcOk0cNc/-RqEbPXUb-8asfbyBdDMcQ/edit?utm_content=DAFmcOk0cNc&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
 プロジェクトの説明をここに記載します。
 
 ## 開発を始めるにあたって
